@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/product_item"
+    android:background="#FFFFFF"
+    android:padding="@dimen/dp_10"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_product_img"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_120"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/tv_product_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_33"
+        android:layout_marginTop="@dimen/dp_3"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="2"
+        android:text="Sunt solitudoes manifestum albus, festus hydraes.Manducare etiam ducunt ad ferox liberi.Eheu."
+        style="@style/text_style_11"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_3"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/iv_text_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            style="@style/text_style_11"
+            android:gravity="left"
+            android:ellipsize="end"/>
+
+        <TextView
+            style="@style/text_style_9_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="起" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_gravity="left"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_terms"
+            android:layout_gravity="bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingTop="@dimen/dp_2"
+            android:paddingBottom="@dimen/dp_2"
+            android:paddingLeft="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_5"
+            style="@style/text_style_9"
+            android:gravity="center"
+            android:background="@drawable/shop_head_bg"
+            android:ellipsize="end"/>
+
+        <TextView
+            android:layout_gravity="bottom"
+            android:textColor="@color/red_1"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="¥" />
+        <TextView
+            android:layout_gravity="bottom"
+            android:id="@+id/tv_term_price"
+            style="@style/text_style_15_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"/>
+
+        <TextView
+            android:layout_gravity="bottom"
+            style="@style/text_style_9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text=" 起" />
+
+    </LinearLayout>
+
+</LinearLayout>

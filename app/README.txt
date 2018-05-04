@@ -1,0 +1,3 @@
+ifenqu_android.jks 文件是签名文件
+签名文件密码是ifenquandroid
+别名是ifenqu_app 别名密码是ifenquapp

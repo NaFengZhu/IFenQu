@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.ifenqu.app.widget.CommonTitleView
+            android:id="@+id/comm_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_14"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_14">
+
+            <TextView
+                android:id="@+id/tv_new_address"
+                style="@style/text_style_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/receipt_info" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_14"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/ll_individual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <!-- receipt_bg -->
+                    <ImageView
+                        android:id="@+id/iv_individual_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/tick_icon" />
+
+                    <TextView
+                        style="@style/text_style_14_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_4"
+                        android:text="@string/receipt_individual" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_20">
+
+                    <ImageView
+                        android:id="@+id/iv_company_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/receipt_bg" />
+
+                    <TextView
+                        style="@style/text_style_14_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_4"
+                        android:text="@string/receipt_company" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_company_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/receipt_bg2">
+
+                    <EditText
+                        android:id="@+id/et_receipt_company_name"
+                        style="@style/text_style_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_38"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/iv_clear"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:hint="@string/receipt_company_name"
+                        android:maxLines="3"
+                        android:paddingLeft="@dimen/dp_14" />
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/iv_clear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_14"
+                        android:src="@drawable/tick_icon" />
+
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/et_receipt_company_tax_num"
+                    style="@style/text_style_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_38"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@drawable/receipt_bg2"
+                    android:hint="@string/receipt_company_tax"
+                    android:paddingLeft="@dimen/dp_14" />
+
+                <TextView
+                    style="@style/text_style_12_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:text="@string/receipt_company_company_tip" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View style="@style/view_border_style"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_14"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_14"
+            android:paddingRight="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_14">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/text_style_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/receipt_content" />
+
+                <TextView
+                    style="@style/text_style_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_14"
+                    android:text="@string/receipt_content_hint" />
+
+            </LinearLayout>
+
+            <View style="@style/view_border_style"></View>
+
+            <TextView
+                style="@style/text_style_14_10"
+                android:layout_width="@dimen/dp_71"
+                android:layout_height="@dimen/dp_30"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/dp_14"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/receipt_bg3"
+                android:gravity="center"
+                android:text="@string/receipt_detail" />
+
+            <View style="@style/view_border_style"></View>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_receipt_ok"
+        style="@style/text_style_18"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/product_btn_bg"
+        android:gravity="center"
+        android:text="@string/receipt_ok" />
+</RelativeLayout>

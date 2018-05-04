@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/product_item"
+    android:layout_width="match_parent"
+    android:background="@color/bg_1"
+    android:paddingTop="@dimen/dp_14"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_8"
+        android:paddingLeft="@dimen/dp_4"
+        android:paddingRight="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_4"
+        android:background="@color/colorWhite"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_product_img"
+            android:layout_width="@dimen/dp_114"
+            android:layout_height="@dimen/dp_114"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center" />
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/dp_7"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Dyson 戴森吸尘器V7 FluffyDyson 戴森吸尘器V7 FluffyDyson 戴森吸尘器V7 Fluffy"
+                android:layout_marginTop="@dimen/dp_3"
+                style="@style/text_style_14_3"/>
+
+            <LinearLayout
+                android:layout_below="@+id/tv_product_name"
+                android:layout_width="match_parent"
+                android:id="@+id/ll_container_labels"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/dp_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/text_style_11_2"
+                    android:id="@+id/tv_term_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="¥699" />
+                <TextView
+                    android:id="@+id/tv_terms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    style="@style/text_style_9"
+                    android:paddingTop="@dimen/dp_1"
+                    android:paddingBottom="@dimen/dp_1"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:paddingRight="@dimen/dp_5"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:background="@drawable/product_list_bg"
+                    android:text="12期"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:id="@+id/tv_total_price"
+                    style="@style/tab_style_11_1"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="总价 18889" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

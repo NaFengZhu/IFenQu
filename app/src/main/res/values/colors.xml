@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#585858</color>
+    <color name="colorPrimaryDark">#585858</color>
+    <color name="colorPrimaryDark_splash">#FFBE4A</color>
+
+    <color name="colorTheme">#ffce3d3a</color>
+    <!--页面背景的颜色-->
+    <color name="colorPageBg">#F1F3F4</color>
+
+    <color name="colorWhite">#ffffffff</color>
+
+    <color name="colorTabBg">#ffffffff</color>
+    <color name="colorTabTextCheck">#ffce3d3a</color>
+    <color name="colorTabTextNormal">#585858</color>
+    <color name="colorTabLine">#ffce3d3a</color>
+    <color name="colorNavLine">#E0E0E0</color>
+    <color name="colorLine">#EBEBEB</color>
+    <color name="colorHomeLine">#D4D4D4</color>
+    <color name="colorLineDeep">#BBBBBB</color>
+    <color name="colorLineItem">#FFDDDDDD</color>
+    <color name="colorTabText">#585858</color>
+    <color name="colorContent">#ff333333</color>
+
+    <color name="tabBackground">#777D7D7D</color>
+    <color name="itemBackground">#DD7D7D7D</color>
+    <color name="itemLowBackground">#d9d9d9</color>
+
+    <!--透明色-->
+    <color name="colorTransparent">#00000000</color>
+    <!--半透明-->
+    <color name="colorBanTransparent">#11000000</color>
+
+    <color name="colorSubtitle">#999</color>
+    <color name="colorTitle">#666</color>
+    <color name="colorSmallRed">#faebeb</color>
+    <color name="colorRateRed">#FB5B81</color>
+    <color name="colorItemBackground">#d9d9d9</color>
+    <color name="colorChoosePress">#DDD</color>
+
+    <color name="text_common">#191919</color>
+    <color name="text_deed_bg">#f6f6f6</color>
+
+    <color name="colorBtDialog">#38659C</color>
+
+    <color name="login_btn_start">#FFC21A</color>
+    <color name="login_btn_end">#FFA200</color>
+    <color name="bg_color2">#FFCF00</color>
+
+
+
+    <color name="tab_color">#888888</color>
+    <color name="tab_color_selected">#FFAA00</color>
+    <color name="line_divide_color">#DCDCDC</color>
+    <color name="line_border">#DCDCDC</color>
+    <color name="password_bg">#FFBB00</color>
+
+    <color name="text_title_color">#333333</color>
+    <color name="text_subtitle_color">#888888</color>
+    <color name="text_subtitle2_color">#e93530</color>
+    <color name="login_logo_text">#222222</color>
+    <color name="login_other_text">#888888</color>
+    <color name="login_logo_hint_text">#bababa</color>
+    <color name="verification_code_color">#128ABC</color>
+    <color name="bg_1">#F5F5F5</color>
+    <color name="dialog_bg_logout">#666666</color>
+    <color name="coupon_tab">#FF9900</color>
+    <color name="activity_bg">#f7f8f8</color>
+    <color name="green">#33cc66</color>
+    <color name="top_bar_bg">#33cc99</color>
+    <color name="black">#000000</color>
+    <color name="alpha_3">#3000</color>
+    <color name="blue">#009ed3</color>
+    <color name="about_bg">#FFFFFF</color>
+    <color name="about_bg_start">#FFD71A</color>
+    <color name="about_bg_end">#FFC400</color>
+    <color name="tab_bg">#FFC400</color>
+    <color name="product_bg">#FF7700</color>
+    <color name="alpha_6">#6000</color>
+    <color name="alpha_1">#1000</color>
+    <color name="red_1">#E63737</color>
+    <color name="red_2">#E27266</color>
+    <color name="line_bg1">#E8E8E8</color>
+
+
+</resources>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_1"
+    android:orientation="vertical">
+
+    <com.ifenqu.app.widget.CommonTitleView
+        android:id="@+id/comm_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45" />
+
+    <TextView
+        style="@style/tab_style_12_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_6"
+        android:paddingLeft="@dimen/dp_14"
+        android:paddingTop="@dimen/dp_14"
+        android:text="@string/product_confirmation" />
+
+    <EditText
+        android:id="@+id/et_name"
+        style="@style/text_style_14_9"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_51"
+        android:layout_centerVertical="true"
+        android:background="@color/colorWhite"
+        android:hint="@string/address_name"
+        android:paddingLeft="@dimen/dp_14"
+        android:paddingRight="@dimen/dp_14" />
+
+
+    <View style="@style/view_border_style"></View>
+
+    <EditText
+        android:id="@+id/et_phone"
+        style="@style/text_style_14_9"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_51"
+        android:layout_centerVertical="true"
+        android:background="@color/colorWhite"
+        android:hint="@string/address_phone"
+        android:paddingLeft="@dimen/dp_14"
+        android:paddingRight="@dimen/dp_14" />
+
+    <View style="@style/view_border_style"></View>
+
+    <RelativeLayout
+        android:id="@+id/rl_choose_location"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_51"
+        android:background="@color/colorWhite"
+        android:paddingLeft="@dimen/dp_14"
+        android:paddingRight="@dimen/dp_14">
+
+        <TextView
+            android:id="@+id/et_area"
+            style="@style/text_style_14_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:hint="@string/address_area" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/norrow_to_right_icon" />
+
+    </RelativeLayout>
+
+    <View style="@style/view_border_style"></View>
+
+    <EditText
+        android:id="@+id/tv_specific_place"
+        style="@style/text_style_14_9"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100"
+        android:layout_centerVertical="true"
+        android:background="@color/colorWhite"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:hint="@string/address_detail"
+        android:maxLines="4"
+        android:padding="@dimen/dp_14" />
+
+    <TextView
+        android:id="@+id/tv_save_and_use"
+        style="@style/text_style_18"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginLeft="@dimen/dp_14"
+        android:layout_marginRight="@dimen/dp_14"
+        android:layout_marginTop="@dimen/dp_14"
+        android:background="@drawable/product_btn_bg"
+        android:gravity="center"
+        android:text="@string/address_action" />
+</LinearLayout>

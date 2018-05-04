@@ -1,0 +1,177 @@
+<resources>
+    <string name="app_name">爱分趣</string>
+
+    <!-- 登录相关的Text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_tip1">登录</string>
+    <string name="login_hint_phone">请输入手机号码</string>
+    <string name="login_hint_verification">输入验证码</string>
+    <string name="login_verification">获取验证</string>
+    <string name="login_request_verification">重新发送</string>
+    <string name="login_text">登录</string>
+    <string name="login_forget_password">忘记密码?</string>
+    <string name="login_other_way">  其他登录方式 </string>
+    <string name="login_rule_tip">登录即代表您已经同意&#8194;</string>
+    <string name="login_rule"><u>爱分趣隐私政策</u></string>
+    <string name="login_fail"><u>登录失败，请稍后再试</u></string>
+    <string name="login_verification_str">%dS</string>
+
+    <!-- Toast 相关Text -->
+    <string name="toast_no_internet">请检查网络</string>
+    <string name="toast_check_phone_number">请输入正确的手机号码</string>
+    <string name="toast_check_old_phone_number">请输入正确的原手机号码</string>
+    <string name="toast_check_new_phone_number">请输入正确的新手机号码</string>
+    <string name="toast_check_same_phone_number">输入的手机号码与原手机号码相同</string>
+    <string name="toast_check_verification_code">请输入正确的验证码</string>
+    <string name="toast_"><u>爱分趣隐私政策</u></string>
+    <string name="login_error">登录失败</string>
+    <string name="shut_down_app">再按一次后退键退出程序</string>
+
+    <!-- 主界面 tabs -->
+    <string name="tab_shop">商城</string>
+    <string name="tab_discovery">消息</string>
+    <string name="tab_me">我的</string>
+
+    <!-- 消息 tab -->
+    <string name="discovery_title">消息</string>
+
+    <!-- me fragment 相关 -->
+    <string name="register_text">注册</string>
+    <string name="me_credits">积分</string>
+    <string name="me_orders">我的订单</string>
+    <string name="me_coupons">优惠券</string>
+    <string name="me_gifts">权益券</string>
+    <string name="me_suggestion">为你推荐</string>
+    <string name="login_tip">登录/注册</string>
+    <string name="login_tip2">请先登录</string>
+    <string name="login_out_text">确认退出登录?</string>
+    <string name="login_out_ok_text">确认</string>
+    <string name="login_out_cancel_text">取消</string>
+    <string name="login_out_already">已登出</string>
+
+    <!-- 更改密码 相关 -->
+    <string name="change_password_original_phone">输入原号码</string>
+    <string name="change_password_new_phone">输入新号码</string>
+    <string name="change_password_confirm">确认更换</string>
+    <string name="change_password_title">更换手机号码</string>
+
+    <!-- 我的优惠券 tabs -->
+    <string name="coupon_title1">使用优惠券</string>
+    <string name="coupon_validate">未使用</string>
+    <string name="coupon_title">我的优惠券</string>
+    <string name="coupon_used">已使用</string>
+    <string name="coupon_expired">已过期</string>
+    <string name="coupon_no_data">暂无可用的优惠券</string>
+
+    <!-- 关于我们 tabs -->
+    <string name="about_title">关于我们</string>
+    <string name="about_privacy">使用条款</string>
+    <string name="about_announce">隐私声明</string>
+    <string name="about_safety_announce">安全管理声明</string>
+    <string name="about_return_privacy">退换货政策</string>
+
+    <string name="about_current_version">当前版本%s</string>
+    <string name="about_phone">客服热线 </string>
+    <string name="about_phone1"> 400-605-5188</string>
+    <string name="about_cooperation">商务合作 </string>
+    <string name="about_cooperation1"> BD@ifenqu.com</string>
+    <string name="title_activity_base">BaseActivity</string>
+
+    <!-- 订单详情 -->
+    <string name="order_detail_title">订单详情</string>
+    <string name="order_detail_pay">立即支付</string>
+
+
+    <!-- 产品详情 -->
+    <string name="product_detail">选择商品款型</string>
+    <string name="product_detail_str">已选</string>
+    <string name="product_tab_1">产品详情</string>
+    <string name="product_tab_2">购前说明</string>
+    <string name="product_tab_3">常见回答</string>
+    <string name="product_bottom_text1">金额 </string>
+    <string name="product_bottom_text5">¥</string>
+    <string name="product_bottom_text2">每期</string>
+    <string name="product_bottom_text3">立即购买</string>
+
+    <!-- 确认购买 -->
+    <string name="product_confirmation_title">确认购买</string>
+    <string name="product_confirmation">详细收货信息</string>
+    <string name="product_confirmation_str1">新增收货地址</string>
+    <string name="product_confirmation_str2">购买产品</string>
+    <string name="product_confirmation_receipt">发票信息</string>
+    <string name="product_confirmation_discount">代金券/优惠券</string>
+    <string name="product_confirmation_price">金额   </string>
+    <string name="product_confirmation_credit">积分</string>
+    <string name="product_confirmation_credit_available">(可抵扣 ¥%s)</string>
+    <string name="product_confirmation_credit_available_1"> ¥500.00</string>
+    <string name="product_confirmation_credit_use">使用</string>
+    <string name="product_confirmation_term">分期</string>
+    <string name="product_confirmation_total_price">总计金额</string>
+    <string name="product_confirmation_now_price">实付</string>
+    <string name="product_confirmation_save">以节省 ¥%s</string>
+    <string name="product_confirmation_about">约</string>
+
+
+    <!-- 地址 -->
+    <string name="address_action">保存并使用</string>
+    <string name="address_name">姓名</string>
+    <string name="address_phone">手机号</string>
+    <string name="address_area">地区选择</string>
+    <string name="address_detail">详细地址</string>
+    <string name="address_title">新增收货地址</string>
+    <string name="address_title_edit">编辑收货地址</string>
+    <string name="address_info">收货人信息</string>
+    <string name="address_specific">%1$s %2$s %3$s</string>
+
+    <!-- 发票信息 -->
+    <string name="receipt_info">发票信息</string>
+    <string name="receipt_individual">个人</string>
+    <string name="receipt_company">公司</string>
+    <string name="receipt_company_name">填写单位名称</string>
+    <string name="receipt_company_tax">填写纳税人识别号</string>
+    <string name="receipt_company_company_tip">*开具企业抬头发票须填写正确的单位名称与纳税人识别号</string>
+    <string name="receipt_content">发票内容</string>
+    <string name="receipt_content_hint">发票内容选项根据税法调整，具体请以展示为准</string>
+    <string name="receipt_detail">商品明细</string>
+    <string name="receipt_ok">确定</string>
+    <string name="receipt_str">开票须知</string>
+    <string name="receipt_str1">我知道了</string>
+    <string name="receipt_str3">1.发票金额不含优惠券和积分抵扣部分。 \n2.如您购买的商品开具的是电子发票，按照国家税务总局2015年84号公告规定，电子发票法律效力、用途、使用规定等与税务机关监制的增值税普通发票(纸质普通发票)相同，为您报销、维权、售后提供有效凭证。 \n3.第三方售卖的商品/服务的发票，由卖家出具提供，发票类型和内容根据实际商品与服务情况决定。 \n4.如需开具增值税专用发票，请联系客服热线：400-605-5188" </string>
+
+    <!-- 商品首页 -->
+    <string name="shop_hot_product">热销榜</string>
+    <string name="shop_new_product">新品首发</string>
+    <string name="shop_product_more">甄选好物</string>
+    <string name="shop_new_product_area">品牌专区</string>
+
+    <!-- 商品列表 -->
+    <string name="product_list_subtitle">总价 ¥%f 起</string>
+    <string name="product_list_subtitle1">总价 ¥%s 起</string>
+    <string name="product_list_subtitle2">总价 ¥%s </string>
+    <string name="product_list_subtitle_1"> ¥%s 起</string>
+    <string name="product_list_subtitle_2"> .%s 起</string>
+    <string name="product_list_title">甄选好物</string>
+
+
+    <!-- 异常状态 -->
+    <string name="discovery_no_news">暂无消息</string>
+    <string name="status_network">未连接到网络，请检查网络配置</string>
+    <string name="status_load_fail">加载失败,点击重试</string>
+    <string name="status_loading">努力加载中...</string>
+
+    <!-- 我的权益券-->
+    <string name="gift_title">我的权益券</string>
+    <string name="gift_no_data">暂无可用的权益券</string>
+
+    <!-- 我的订单-->
+    <string name="order_list_title">我的订单</string>
+    <string name="order_list_no_data">暂无订单记录</string>
+
+    <!-- 确认订单-->
+    <string name="confirmation_str">%1$s %2$s</string>
+
+    <string name="update_profile">完善个人资料</string>
+    <string name="product_detail_tip">爱分趣:请选择商品款型</string>
+
+
+</resources>

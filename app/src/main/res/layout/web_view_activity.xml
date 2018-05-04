@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:IfenquWebView="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llWebView"
+    style="@style/activity_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.ifenqu.app.widget.IFenQuWebView
+        android:id="@+id/ifenqu_webView"
+        android:layout_width="match_parent"
+        IfenquWebView:webView_height_style="webView_match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_skip"
+        android:text="确定"
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_20"
+        android:textSize="@dimen/sp_12"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:paddingLeft="@dimen/sp_12"
+        android:paddingRight="@dimen/sp_12"
+        android:textColor="@color/colorWhite"
+        android:background="@color/text_subtitle2_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

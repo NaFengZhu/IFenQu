@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/edit_item_text_bg"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvAlertDialogTitle"
+        style="@style/text_style_16_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/dp_37"
+        android:paddingTop="@dimen/dp_51"
+        android:text="该商品已下架，请选择其他商品" />
+
+
+    <View style="@style/view_border_style"></View>
+
+
+    <Button
+        android:id="@+id/btnAlertDialogPositive"
+        style="@style/text_style_16_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/to_alpha"
+        android:text="确定" />
+
+
+</LinearLayout>

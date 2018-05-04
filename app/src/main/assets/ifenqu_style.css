@@ -1,0 +1,20 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+ul,li,ol{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+a{
+    text-decoration: none;
+}
+em{
+    font-style:normal;
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/edit_item_text_bg"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/text_style_16_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dp_30"
+        android:paddingTop="@dimen/dp_32"
+        android:text="@string/receipt_str" />
+
+    <ScrollView
+        android:layout_marginBottom="@dimen/dp_15"
+        android:layout_width="236dp"
+        android:layout_height="228dp"
+        android:paddingLeft="@dimen/dp_24"
+        android:paddingRight="@dimen/dp_24">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1.发票金额不含优惠券和积分抵扣部分。 \n\n2.如您购买的商品开具的是电子发票，按照国家税务总局2015年84号公告规定，电子发票法律效力、用途、使用规定等与税务机关监制的增值税普通发票(纸质普通发票)相同，为您报销、维权、售后提供有效凭证。\n\n3.第三方售卖的商品/服务的发票，由卖家出具提供，发票类型和内容根据实际商品与服务情况决定。\n\n4.如需开具增值税专用发票，请联系客服热线：400-605-5188"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View style="@style/view_border_style"></View>
+
+    <TextView
+        android:id="@+id/tv_know"
+        style="@style/text_style_16_6"
+        android:layout_marginTop="@dimen/dp_15"
+        android:text="@string/receipt_str1"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="@dimen/dp_45" />
+
+
+</LinearLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_1"
+    android:orientation="vertical"
+    tools:context="com.ifenqu.app.view.activity.ChangePasswordActivity">
+
+    <com.ifenqu.app.widget.CommonTitleView
+        android:id="@+id/comm_title"
+        app:common_title="完善个人资料"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"/>
+    <View
+        style="@style/view_border_style"></View>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0.5"
+        android:background="@color/line_divide_color"
+        android:paddingLeft="@dimen/dp_14"
+        android:paddingRight="@dimen/dp_14"></View>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:paddingLeft="@dimen/dp_14"
+        android:paddingRight="@dimen/dp_14">
+
+        <EditText
+            android:id="@+id/et_new_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:background="@color/colorWhite"
+            android:hint="@string/change_password_new_phone"
+            android:theme="@style/edittext_style_16_1" />
+
+        <TextView
+            android:id="@+id/tv_verification_code"
+            style="@style/text_style_16_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/login_verification" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0.5"
+        android:background="@color/line_border"></View>
+
+    <EditText
+        android:id="@+id/et_verification_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_55"
+        android:layout_marginTop="@dimen/dp_14"
+        android:background="@color/colorWhite"
+        android:hint="@string/login_hint_verification"
+        android:paddingLeft="@dimen/dp_14"
+        android:paddingRight="@dimen/dp_14"
+        android:theme="@style/edittext_style_16_1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0.5"
+        android:background="@color/line_border"></View>
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        style="@style/text_style_18"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_18"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/dp_11"
+        android:layout_marginRight="@dimen/dp_11"
+        android:background="@drawable/password_bg"
+        android:text="绑定" />
+
+
+
+
+</LinearLayout>

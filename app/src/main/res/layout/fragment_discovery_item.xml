@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_time"
+        style="@style/text_style_12_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dp_11"
+        android:paddingTop="@dimen/dp_11"/>
+
+
+    <ImageView
+        android:layout_marginTop="@dimen/dp_12"
+        android:id="@+id/iv_product_img"
+        android:layout_width="@dimen/dp_326"
+        android:layout_height="@dimen/dp_130"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitCenter"
+        android:src="@drawable/heater_icon" />
+
+    <TextView
+        android:id="@+id/tv_product_name"
+        style="@style/text_style_14_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12"
+        android:lineSpacingExtra="@dimen/dp_2"
+        android:ellipsize="end"
+        android:gravity="top"
+        android:maxLines="2"
+        android:text="戴森Dyson Supersonic™ 吹风机上线爱分趣免息商城，戴森尖端科技，给你带来舒适生活" />
+
+    <View
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12"
+        style="@style/view_border_style"></View>
+
+    <RelativeLayout
+        android:id="@+id/rl_see_more"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_51"
+        android:background="@color/colorWhite"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12">
+
+        <TextView
+            style="@style/text_style_14_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="查看详情" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/norrow_to_right_icon" />
+
+    </RelativeLayout>
+
+</LinearLayout>
