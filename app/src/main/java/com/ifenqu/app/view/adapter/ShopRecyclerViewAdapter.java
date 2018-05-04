@@ -89,7 +89,6 @@ public class ShopRecyclerViewAdapter extends RecyclerView.Adapter<ShopRecyclerVi
                 int longest = termList.get(termList.size() - 1);
                 tv_terms.setText(longest + "期");
                 tv_term_price.setText(StringUtil.getPrice(totalPrice/longest));
-//                handleLabels();
             }
         }
     }

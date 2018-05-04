@@ -228,8 +228,6 @@ public class LoginActivity extends BaseActivity implements OnHttpResponseListene
             mGeeVerificationUtil.realse();
         }
 
-        timerManager = null;
-
     }
 
     @Override

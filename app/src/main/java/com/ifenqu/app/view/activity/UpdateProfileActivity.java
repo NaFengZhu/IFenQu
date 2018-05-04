@@ -154,8 +154,6 @@ public class UpdateProfileActivity extends BaseActivity implements TimerManager.
             mGeeVerificationUtil.realse();
         }
 
-        timerManager = null;
-
     }
 
     @Override

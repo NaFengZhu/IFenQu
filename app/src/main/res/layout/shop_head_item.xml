@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/iv_product_img"
-        android:layout_width="@dimen/dp_120"
-        android:layout_height="@dimen/dp_120"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
         android:scaleType="fitCenter"
         android:layout_gravity="center" />
 
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="3"
-            style="@style/text_style_11"
+            style="@style/tab_style_11_1"
             android:gravity="left"
             android:ellipsize="end"/>
 
@@ -50,9 +50,8 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="@dimen/dp_6"
-        android:layout_gravity="left"
+    <RelativeLayout
+        android:layout_marginTop="@dimen/dp_10"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -61,6 +60,7 @@
             android:layout_gravity="bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:maxLines="1"
             android:paddingTop="@dimen/dp_2"
             android:paddingBottom="@dimen/dp_2"
@@ -72,19 +72,23 @@
             android:ellipsize="end"/>
 
         <TextView
+            android:id="@+id/tv_tag1"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_terms"
             android:layout_gravity="bottom"
-            android:textColor="@color/red_1"
-            android:layout_marginLeft="@dimen/dp_8"
+            android:layout_marginLeft="@dimen/dp_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="¥" />
+            android:gravity="bottom"
+            android:text="￥"
+            style="@style/tab_style_10_4"
+            android:maxLines="1" />
         <TextView
             android:layout_gravity="bottom"
             android:id="@+id/tv_term_price"
-            style="@style/text_style_15_1"
+            android:layout_toRightOf="@+id/tv_tag1"
+            style="@style/text_style_11_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -92,15 +96,18 @@
             android:maxLines="1"/>
 
         <TextView
+            android:layout_toRightOf="@+id/tv_term_price"
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_minimum_price_flag"
             android:layout_gravity="bottom"
             style="@style/text_style_9"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
             android:text=" 起" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

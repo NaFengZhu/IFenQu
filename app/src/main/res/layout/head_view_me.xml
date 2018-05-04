@@ -183,7 +183,9 @@
             </RelativeLayout>
         </RelativeLayout>
 
-        <View style="@style/view_border_style"></View>
+        <View
+            android:layout_marginLeft="@dimen/dp_14"
+            style="@style/view_border_style"></View>
 
         <RelativeLayout
             android:id="@+id/rl_my_coupon"
@@ -228,7 +230,9 @@
             </RelativeLayout>
         </RelativeLayout>
 
-        <View style="@style/view_border_style"></View>
+        <View
+            android:layout_marginLeft="@dimen/dp_14"
+            style="@style/view_border_style"></View>
 
         <RelativeLayout
             android:id="@+id/rl_my_gift"
@@ -273,7 +277,8 @@
             </RelativeLayout>
         </RelativeLayout>
 
-        <View style="@style/view_border_style"></View>
+        <View
+            style="@style/view_border_style"></View>
 
     </LinearLayout>
 

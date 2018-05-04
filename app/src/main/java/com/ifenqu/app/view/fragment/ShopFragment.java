@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout;
 import com.google.gson.Gson;
 import com.ifenqu.app.R;
 import com.ifenqu.app.http.HttpConstant;
@@ -32,8 +31,6 @@ public class ShopFragment extends BaseFragment implements OnHttpResponseListener
 
     @BindView(R.id.rv_recyclerView)
     SwipeMenuRecyclerView rv_recyclerView;
-    @BindView(R.id.srl_refresh)
-    SuperSwipeRefreshLayout srl_refresh;
 
     private ShopRecyclerViewAdapter mShopRecyclerViewAdapter;
     private ShopHeadView shopHeadView;
@@ -101,40 +98,6 @@ public class ShopFragment extends BaseFragment implements OnHttpResponseListener
 
         mShopRecyclerViewAdapter = new ShopRecyclerViewAdapter();
         rv_recyclerView.setAdapter(mShopRecyclerViewAdapter);
-
-        srl_refresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (srl_refresh.isRefreshing())srl_refresh.setRefreshing(false);
-            }
-
-            @Override
-            public void onPullDistance(int i) {
-
-            }
-
-            @Override
-            public void onPullEnable(boolean b) {
-
-            }
-        });
-        srl_refresh.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                srl_refresh.setLoadMore(false);
-            }
-
-            @Override
-            public void onPushDistance(int i) {
-
-            }
-
-            @Override
-            public void onPushEnable(boolean b) {
-
-            }
-        });
-
     }
 
     private void initRecyclerViewHeadViews() {

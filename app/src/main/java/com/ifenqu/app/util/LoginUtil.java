@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.ifenqu.app.R;
 import com.ifenqu.app.app.IfenquApplication;
 import com.ifenqu.app.model.TokenModel;
+import com.ifenqu.app.model.UserModel;
 
 public class LoginUtil {
 
@@ -29,6 +30,10 @@ public class LoginUtil {
 
     public static TokenModel getLoginToken(){
         return (TokenModel) CacheUtils.getInstance().getSerializable(CacheConstant.KEY_TOKEN);
+    }
+
+    public static UserModel getUserMode(){
+        return (UserModel) CacheUtils.getInstance().getSerializable(CacheConstant.KEY_CURRENT_USER_INFO);
     }
 
 }

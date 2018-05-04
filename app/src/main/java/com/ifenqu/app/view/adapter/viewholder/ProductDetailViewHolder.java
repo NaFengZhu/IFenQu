@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.blankj.utilcode.util.LogUtils;
 import com.ifenqu.app.R;
 import com.ifenqu.app.model.GoodDetailModel;
 import com.ifenqu.app.model.GoodModel;
@@ -19,8 +17,10 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import butterknife.BindView;
@@ -89,12 +89,13 @@ public class ProductDetailViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
+    private List<Integer> selectedList = new ArrayList<>();
     public void setData(GoodModel goodModel,int position){
         if (goodModel == null)return;
         this.parentPosition = position;
         this.goodModel = goodModel;
         titleList.clear();
-
+        selectedList.clear();
 
         if (position == 0){
             tv_categories.setText(goodModel.getColorTitle());
@@ -104,7 +105,7 @@ public class ProductDetailViewHolder extends RecyclerView.ViewHolder {
                 if (model == null)continue;
                 titleList.add(model.getName());
                 if (model.isSelected()){
-                    adapter.setSelected(i,model.getName());
+                    selectedList.add(i);
                 }
             }
         }else {
@@ -116,11 +117,15 @@ public class ProductDetailViewHolder extends RecyclerView.ViewHolder {
                 if (model == null)continue;
                 titleList.add(model.getName());
                 if (model.isSelected()){
-                    adapter.setSelected(i,model.getName());
+                    selectedList.add(i);
                 }
             }
         }
 
         adapter.notifyDataChanged();
+
+        for (int i = 0; i < selectedList.size(); i++) {
+            adapter.setSelectedList(selectedList.get(i));
+        }
     }
 }

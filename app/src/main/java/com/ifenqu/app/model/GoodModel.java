@@ -13,6 +13,25 @@ public class GoodModel implements Serializable {
     private String webView_content;
     private boolean onlyOnePrice;
 
+    private GoodDetailModel currentColorItem;
+    private GoodDetailModel currentStyleItem;
+
+    public GoodDetailModel getCurrentColorItem() {
+        return currentColorItem;
+    }
+
+    public void setCurrentColorItem(GoodDetailModel currentColorItem) {
+        this.currentColorItem = currentColorItem;
+    }
+
+    public GoodDetailModel getCurrentStyleItem() {
+        return currentStyleItem;
+    }
+
+    public void setCurrentStyleItem(GoodDetailModel currentStyleItem) {
+        this.currentStyleItem = currentStyleItem;
+    }
+
     public boolean isOnlyOnePrice() {
         return onlyOnePrice;
     }

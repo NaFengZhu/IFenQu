@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -138,6 +137,8 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
     private int productPrice; //商品价格值
     private String termsPrice;
     private String productImageContent;
+    private GoodDetailModel colorModel;
+    private GoodDetailModel styleModel;
 
     public static void start(Context context, long productId) {
         if (context == null) return;
@@ -325,6 +326,10 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
         typeMap = gson.fromJson(mapStr, type);
     }
 
+    /**
+     * GoodModel
+     * 一个business model 主要是用于在产品详情-选择产品类型款式之间操作的对象
+     */
     private void generatedData() {
         if (productModel == null) return;
         List<ProductDetailGoodsModel> goodsList = productModel.getGoodsList();
@@ -342,8 +347,10 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
         goodModel.setColorTitle("颜色");
         goodModel.setStyleTitle("版本");
         goodModel.setWebView_content(productImageContent);
-        goodModel.setLowPrice(priceList.get(0));
-        goodModel.setHighPrice(priceList.get(priceList.size() - 1));
+        if (priceList != null && priceList.size() > 0){
+            goodModel.setLowPrice(priceList.get(0));
+            goodModel.setHighPrice(priceList.get(priceList.size() - 1));
+        }
         goodModel.setTermsPrice(String.valueOf(termsPrice));
         goodModel.setStyleList(styleList);
         goodModel.setColorList(colorList);
@@ -357,6 +364,11 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
 
     private List<String> nameSet = new ArrayList<>();
 
+
+    /**
+     * 从每个产品列表里删选出来 颜色、款式 类型
+     * @param goodsDictDetailModelList
+     */
     private void handleGoodDetailList(List<GoodDetailModel> goodsDictDetailModelList) {
         if (goodsDictDetailModelList == null || goodsDictDetailModelList.size() == 0) return;
         for (int i = 0; i < goodsDictDetailModelList.size(); i++) {
@@ -375,15 +387,26 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
                 styleList.add(detailModel);
             }
         }
+
+        generatedData();
     }
 
     private void chooseGoods() {
-        generatedData();
         BottomMenuWindow.startForResult(this, goodModel, REQUEST_CODE_GOODS);
     }
 
     @OnClick(R.id.tv_buy_now)
     public void buyNow(View view) {
+        if (colorModel == null) {
+            ToastUtils.showShort("请选择颜色");
+            return;
+        }
+
+        if (styleModel == null) {
+            ToastUtils.showShort("请选择版本配置");
+            return;
+        }
+
         if (confirmBusinessModel == null) {
             chooseGoods();
             return;
@@ -445,6 +468,45 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
         chooseGoods();
     }
 
+    private void clearColorSelected(){
+        if (goodModel == null)return;
+        List<GoodDetailModel> list = goodModel.getColorList();
+        if (list != null){
+            int num = list.size();
+            for (int i = 0; i < num; i++) {
+                GoodDetailModel item = list.get(i);
+                if (item == null)continue;
+                item.setSelected(false);
+            }
+        }
+    }
+
+    private void clearStyleSelected(){
+        if (goodModel == null)return;
+        List<GoodDetailModel> styleList = goodModel.getStyleList();
+        if (styleList != null){
+            int num = styleList.size();
+            for (int i = 0; i <num ; i++) {
+                GoodDetailModel item = styleList.get(i);
+                if (item == null)continue;
+                item.setSelected(false);
+            }
+        }
+    }
+
+    private void selectedData(List<GoodDetailModel> tagItem, GoodDetailModel item){
+        if (tagItem == null)return;
+        if (item == null)return;
+        int num = tagItem.size();
+        for (int i = 0; i < num ; i++) {
+            GoodDetailModel goodDetailModel = tagItem.get(i);
+            if (goodDetailModel == null)continue;
+            if (goodDetailModel.getGoodsId() == item.getGoodsId() && goodDetailModel.getSubTypeDictId() == item.getSubTypeDictId()){
+                goodDetailModel.setSelected(true);
+            }
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -453,10 +515,38 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
             if (data == null) return;
             if (productModel == null) return;
 
-            GoodDetailModel colorModel = (GoodDetailModel) data.getSerializableExtra(ProductDetailActivity.BUNDLE_KEY_COLOR);
-            GoodDetailModel styleModel = (GoodDetailModel) data.getSerializableExtra(ProductDetailActivity.BUNDLE_KEY_STYLE);
+            colorModel = (GoodDetailModel) data.getSerializableExtra(ProductDetailActivity.BUNDLE_KEY_COLOR);
+            styleModel = (GoodDetailModel) data.getSerializableExtra(ProductDetailActivity.BUNDLE_KEY_STYLE);
 
-            showTypeContent(true);
+             showTypeContent(true);
+
+            clearColorSelected();
+            clearStyleSelected();
+
+            if (colorModel == null && styleModel == null){
+                showTypeContent(false);
+                return;
+            }
+            if (colorModel == null ){
+                if (styleModel != null){
+                    tv_type_name.setText(styleModel.getName());
+                    selectedData(goodModel.getStyleList(),styleModel);
+                    goodModel.setCurrentStyleItem(styleModel);
+                    goodModel.setCurrentColorItem(null);
+                }
+                return;
+            }
+
+            if (styleModel == null) {
+                if (colorModel != null){
+                    tv_type_name.setText(colorModel.getName());
+                    selectedData(goodModel.getColorList(),colorModel);
+                    goodModel.setCurrentStyleItem(null);
+                    goodModel.setCurrentColorItem(colorModel);
+                }
+                return;
+            }
+
             tv_type_name.setText(colorModel.getName() + "  " + styleModel.getName());
 
             confirmBusinessModel = new ConfirmBusinessModel();
@@ -464,34 +554,61 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
             confirmBusinessModel.setProductId(productId);
             confirmBusinessModel.setStyleModel(styleModel);
             confirmBusinessModel.setProductName(productModel.getProductName());
-            List<ProductDetailGoodsModel> list = productModel.getGoodsList();
-            int colorModelSubTypeDictId = colorModel.getSubTypeDictId();
-            int styleModelSubTypeDictId = styleModel.getSubTypeDictId();
-            int amount = 0;
-            int goodsId = 0;
-            int doubleCheck = 0;
-            for (int i = 0; i < list.size(); i++) {
-                ProductDetailGoodsModel item = list.get(i);
+            ProductDetailGoodsModel model = calculateCurrentPrice(colorModel, styleModel);
+            if (model != null){
+                confirmBusinessModel.setGoodsId(model.getGoodsId() + "");
+                confirmBusinessModel.setTotalPrice(String.valueOf(model.getAmount()));
+            }
+
+        }
+    }
+
+    /**
+     * 这快可能有坑，goodDetailMode没有是不依赖具体的某个产品的，
+     * 所以要循环所有的产品就行匹配，看是否有某哥产品都包含colorModel&styleModel
+     * @param colorModel
+     * @param styleModel
+     * @return
+     */
+    private ProductDetailGoodsModel calculateCurrentPrice(GoodDetailModel colorModel, GoodDetailModel styleModel) {
+        if (colorModel != null && styleModel != null) {
+            List<ProductDetailGoodsModel> goodsModelList = goodModel.getGoodsList();
+            if (goodsModelList == null || goodsModelList.size() == 0) return null;
+            int goodsSize = goodsModelList.size();
+            for (int i = 0; i < goodsSize; i++) {
+                ProductDetailGoodsModel item = goodsModelList.get(i);
                 if (item == null) continue;
-                List<GoodDetailModel> goodDetailModels = item.getGoodsDictDetailModelList();
-                if (goodDetailModels == null) continue;
-                for (int j = 0; j < goodDetailModels.size(); j++) {
-                    GoodDetailModel goodDetailModel = goodDetailModels.get(j);
-                    if (goodDetailModel == null) continue;
-                    int subTypeDictId = goodDetailModel.getSubTypeDictId();
-                    if (colorModelSubTypeDictId == subTypeDictId || styleModelSubTypeDictId == subTypeDictId) {
-                        doubleCheck++;
-                    }
-                }
-                if (doubleCheck >= 2) {
-                    amount = item.getAmount();
-                    goodsId = item.getGoodsId();
-                    break;
+                boolean isHas = calculateCurrentType(item.getGoodsDictDetailModelList(), colorModel.getSubTypeDictId(), styleModel.getSubTypeDictId());
+                if (isHas) {
+                    return item;
                 }
             }
-            confirmBusinessModel.setGoodsId(goodsId + "");
-            confirmBusinessModel.setTotalPrice(String.valueOf(amount));
+
         }
+        return null;
+    }
+
+    private boolean calculateCurrentType(List<GoodDetailModel> item, int colorType, int styleType) {
+        if (item == null) return false;
+        int num = item.size();
+        boolean hasColor = false, hasType = false;
+        for (int i = 0; i < num; i++) {
+            GoodDetailModel model = item.get(i);
+            if (model == null) continue;
+            if (model.getSubTypeDictId() == colorType) {
+                hasColor = true;
+                model.setSelected(true);
+                goodModel.setCurrentColorItem(model);
+            }else if (model.getSubTypeDictId() == styleType){
+                hasType = true;
+                model.setSelected(true);
+                goodModel.setCurrentStyleItem(model);
+            }else {
+                model.setSelected(false);
+            }
+
+        }
+        return hasColor && hasType;
     }
 
     private void showTypeContent(boolean isShow) {

@@ -21,22 +21,16 @@ import com.ifenqu.app.model.GoodDetailModel;
 import com.ifenqu.app.model.GoodModel;
 import com.ifenqu.app.model.ProductDetailGoodsModel;
 import com.ifenqu.app.model.eventbusmodel.ProductDetailEven;
-import com.ifenqu.app.util.LoginUtil;
 import com.ifenqu.app.util.RecyclerManager;
 import com.ifenqu.app.util.StringUtil;
 import com.ifenqu.app.view.BaseActivity;
-import com.ifenqu.app.view.activity.LoginActivity;
 import com.ifenqu.app.view.activity.ProductConfirmationActivity;
 import com.ifenqu.app.view.activity.ProductDetailActivity;
 import com.ifenqu.app.view.adapter.ProductDetailAdapter;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.math.BigDecimal;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -101,6 +95,10 @@ public class BottomMenuWindow extends BaseActivity implements IFenQuWebView.IFen
         if (goodModel == null) return;
         mProductDetailAdapter.update(goodModel);
         wv_product_img.loadHTML(goodModel.getWebView_content());
+
+        colorModel = goodModel.getCurrentColorItem();
+        styleModel = goodModel.getCurrentStyleItem();
+
         setInitialPrice();
     }
 
@@ -113,6 +111,7 @@ public class BottomMenuWindow extends BaseActivity implements IFenQuWebView.IFen
             termPrice = StringUtil.getPrice(goodModel.getTermsPrice(), StringUtil.PRICE_FORMAT_PREFIX) + "起";
             priceStr = StringUtil.getPrice(goodModel.getLowPrice(), StringUtil.PRICE_FORMAT_PREFIX) + " - " + StringUtil.getPrice(goodModel.getHighPrice(), StringUtil.PRICE_FORMAT_PREFIX);
         }
+
         tv_each_terms_price.setText(termPrice);
         total_price.setText(priceStr);
     }
@@ -225,16 +224,15 @@ public class BottomMenuWindow extends BaseActivity implements IFenQuWebView.IFen
         if (event == null) return;
         if (event.getType() == 0) {
             this.colorModel = event.getGoodDetailModel();
-            tagSelected(colorModel, goodModel.getColorList());
         } else {
             this.styleModel = event.getGoodDetailModel();
-            tagSelected(styleModel, goodModel.getColorList());
         }
 
         if (styleModel == null && colorModel == null) {
             setInitialPrice();
             return;
         }
+
         calculateCurrentPrice();
     }
 
@@ -278,20 +276,6 @@ public class BottomMenuWindow extends BaseActivity implements IFenQuWebView.IFen
             }
         }
         return hasColor && hasType;
-    }
-
-    private void tagSelected(GoodDetailModel item, List<GoodDetailModel> list) {
-        if (item == null)return;
-        if (list == null || list.size() == 0) return;
-        for (int i = 0; i < list.size(); i++) {
-            GoodDetailModel itemGoods = list.get(i);
-            if (itemGoods == null) continue;
-            if (itemGoods.getBaseTypeDictId() == item.getBaseTypeDictId()) {
-                itemGoods.setSelected(true);
-            } else {
-                itemGoods.setSelected(false);
-            }
-        }
     }
 
     @Override

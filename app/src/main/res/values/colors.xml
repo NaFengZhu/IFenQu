@@ -56,10 +56,8 @@
     <color name="password_bg">#FFBB00</color>
 
     <color name="text_title_color">#333333</color>
-    <color name="text_subtitle_color">#888888</color>
     <color name="text_subtitle2_color">#e93530</color>
     <color name="login_logo_text">#222222</color>
-    <color name="login_other_text">#888888</color>
     <color name="login_logo_hint_text">#bababa</color>
     <color name="verification_code_color">#128ABC</color>
     <color name="bg_1">#F5F5F5</color>

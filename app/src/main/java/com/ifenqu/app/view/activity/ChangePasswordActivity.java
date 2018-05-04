@@ -23,6 +23,7 @@ import com.ifenqu.app.http.HttpRequest;
 import com.ifenqu.app.http.Response;
 import com.ifenqu.app.http.response.OnHttpResponseListener;
 import com.ifenqu.app.util.GeeVerificationUtil;
+import com.ifenqu.app.util.LoginUtil;
 import com.ifenqu.app.util.NetworkUtil;
 import com.ifenqu.app.util.TimerManager;
 import com.ifenqu.app.view.BaseActivity;
@@ -124,6 +125,7 @@ public class ChangePasswordActivity extends BaseActivity implements OnHttpRespon
 
     @OnClick(R.id.tv_verification_code)
     public void onClickVerificationCode(View view) {
+
         String phone = et_new_phone.getText().toString();
         if (!RegexUtils.isMobileExact(phone)) {
             ToastUtils.showShort(IfenquApplication.getInstance().getResources().getString(R.string.toast_check_new_phone_number));
@@ -133,6 +135,11 @@ public class ChangePasswordActivity extends BaseActivity implements OnHttpRespon
         String originalPhone = et_original_phone.getText().toString();
         if (!TextUtils.isEmpty(originalPhone) && originalPhone.equalsIgnoreCase(phone)) {
             ToastUtils.showShort(IfenquApplication.getInstance().getResources().getString(R.string.toast_check_same_phone_number));
+            return;
+        }
+
+        if (!TextUtils.isEmpty(originalPhone) && LoginUtil.getUserMode() != null && !originalPhone.equalsIgnoreCase(LoginUtil.getUserMode().getMobile())) {
+            ToastUtils.showShort(IfenquApplication.getInstance().getResources().getString(R.string.toast_check_old_phone_number));
             return;
         }
 
@@ -338,6 +345,5 @@ public class ChangePasswordActivity extends BaseActivity implements OnHttpRespon
             mGeeVerificationUtil.realse();
         }
 
-        timerManager = null;
     }
 }

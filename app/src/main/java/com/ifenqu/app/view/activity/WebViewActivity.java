@@ -135,8 +135,6 @@ public class WebViewActivity extends BaseStatusActivity implements TimerManager.
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        timerManager = null;
     }
 
     private void loadContent() {

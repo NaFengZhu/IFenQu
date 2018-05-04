@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.ifenqu.app.R;
 import com.ifenqu.app.model.ProductModel;
 import com.ifenqu.app.util.StringUtil;
@@ -33,17 +34,21 @@ public class ShopHeadHotViewHolder extends BaseViewHolder {
 
     @BindView(R.id.tv_term_price)
     TextView tv_term_price;
+
+    @BindView(R.id.tv_minimum_price_flag)
+    TextView tv_minimum_price_flag;
+
     private ProductModel data;
 
     public ShopHeadHotViewHolder(ViewGroup parent) {
-        super(parent,R.layout.shop_head_item);
-        ButterKnife.bind(this,itemView);
+        super(parent, R.layout.shop_head_item);
+        ButterKnife.bind(this, itemView);
     }
 
     @OnClick(R.id.product_item)
-    public void onClickItem(View view){
-        if (data != null){
-            ProductDetailActivity.start(view.getContext(),data.getProductId());
+    public void onClickItem(View view) {
+        if (data != null) {
+            ProductDetailActivity.start(view.getContext(), data.getProductId());
         }
     }
 
@@ -60,7 +65,9 @@ public class ShopHeadHotViewHolder extends BaseViewHolder {
         if (termList != null && termList.size() > 0) {
             int longest = termList.get(termList.size() - 1);
             tv_terms.setText(longest + "期");
-            tv_term_price.setText(StringUtil.getPrice(totalPrice/longest));
+            tv_term_price.setText(StringUtil.getPrice(totalPrice / longest));
         }
+
+        tv_minimum_price_flag.setVisibility(data.getTerms().size() == 0 ? View.GONE : View.VISIBLE);
     }
 }
