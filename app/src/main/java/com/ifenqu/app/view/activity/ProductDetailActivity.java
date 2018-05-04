@@ -331,6 +331,7 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
      * 一个business model 主要是用于在产品详情-选择产品类型款式之间操作的对象
      */
     private void generatedData() {
+        if (goodModel != null)return;
         if (productModel == null) return;
         List<ProductDetailGoodsModel> goodsList = productModel.getGoodsList();
         if (goodsList == null) return;
@@ -346,6 +347,7 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
         goodModel.setProductId(productId);
         goodModel.setColorTitle("颜色");
         goodModel.setStyleTitle("版本");
+        //productImageContent 是不同接口返回来的，所以选择在每次选择的时候，生成一下这个对象 GoodModel
         goodModel.setWebView_content(productImageContent);
         if (priceList != null && priceList.size() > 0){
             goodModel.setLowPrice(priceList.get(0));
@@ -388,10 +390,10 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
             }
         }
 
-        generatedData();
     }
 
     private void chooseGoods() {
+        generatedData();
         BottomMenuWindow.startForResult(this, goodModel, REQUEST_CODE_GOODS);
     }
 
