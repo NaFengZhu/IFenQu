@@ -8,10 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.ifenqu.app.R;
+import com.ifenqu.app.model.BannerModel;
 import com.ifenqu.app.model.ProductModel;
 import com.ifenqu.app.util.RecyclerManager;
+import com.ifenqu.app.util.StringUtil;
 import com.ifenqu.app.view.activity.ProductListActivity;
+import com.ifenqu.app.view.activity.WebViewActivity;
 import com.ifenqu.app.view.adapter.ShopHeadAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -46,6 +50,7 @@ public class ShopHeadView extends LinearLayout {
     private ShopHeadAdapter hotAdapter;
     private ShopHeadAdapter newAdapter;
     private ShopHeadAdapter brandAdapter;
+    private List<BannerModel> bannerList;
 
     public ShopHeadView(Context context) {
         this(context, null);
@@ -64,7 +69,6 @@ public class ShopHeadView extends LinearLayout {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.shop_head, null, false);
         addView(view);
         ButterKnife.bind(this, view);
-        initBanner();
         initRecyclerView();
     }
 
@@ -82,14 +86,10 @@ public class ShopHeadView extends LinearLayout {
         brand_area_recyclerView.setAdapter(brandAdapter);
     }
 
-    private List<Integer> imageUrl = new ArrayList<>();
+    private List<String> imageUrl = new ArrayList<>();
 
     private void initBanner() {
-        imageUrl.clear();
-        imageUrl.add(R.drawable.banner03);
-
-
-        banner.setBannerStyle(BannerConfig.NOT_INDICATOR);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         banner.setImageLoader(new GlideImageLoader());
         banner.isAutoPlay(true);
         banner.setImages(imageUrl);
@@ -100,7 +100,11 @@ public class ShopHeadView extends LinearLayout {
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                ProductListActivity.start(getContext());
+                if (bannerList != null && position < bannerList.size()){
+                    BannerModel model = bannerList.get(position);
+                    if (model == null)return;
+                    WebViewActivity.start(getContext(),model.getUr());
+                }
             }
         });
     }
@@ -136,8 +140,24 @@ public class ShopHeadView extends LinearLayout {
         brandAdapter.update(testList);
     }
 
+    public void setBannerVisibility(boolean isVisibility){
+        banner.setVisibility(isVisibility?VISIBLE:GONE);
+    }
+
     @OnClick(R.id.ll_get_more)
     public void onClickMoreProducts(View view){
         ProductListActivity.start(view.getContext());
+    }
+
+    public void updateBanner(List<BannerModel> list) {
+        bannerList = list;
+        int num = list.size();
+        imageUrl.clear();
+        for (int i = 0; i < num; i++) {
+            BannerModel item = list.get(i);
+            if (item == null)continue;
+            imageUrl.add(item.getContent());
+        }
+        initBanner();
     }
 }

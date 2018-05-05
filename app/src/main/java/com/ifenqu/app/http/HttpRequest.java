@@ -451,4 +451,15 @@ public class HttpRequest {
         HttpManager.getInstance().get(null, url, requestCode, listener);
     }
 
+    /**
+     * 更新手机号
+     * oldPhone=18039672339&newPhone=18811055567&code=9016
+     *
+     * @param listener
+     */
+    public static void getBanner(final int requestCode, final OnHttpResponseListener listener) {
+        String url = HttpConstant.URL_BANNER;
+        HttpManager.getInstance().get(null, url, requestCode, listener);
+    }
+
 }

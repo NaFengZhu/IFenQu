@@ -12,8 +12,10 @@ import com.google.gson.Gson;
 import com.ifenqu.app.R;
 import com.ifenqu.app.http.HttpConstant;
 import com.ifenqu.app.http.HttpRequest;
+import com.ifenqu.app.http.response.BannerResponse;
 import com.ifenqu.app.http.response.OnHttpResponseListener;
 import com.ifenqu.app.http.response.ProductListResponse;
+import com.ifenqu.app.model.BannerModel;
 import com.ifenqu.app.util.NetworkUtil;
 import com.ifenqu.app.util.RecyclerManager;
 import com.ifenqu.app.view.BaseFragment;
@@ -21,6 +23,9 @@ import com.ifenqu.app.view.activity.ProductListActivity;
 import com.ifenqu.app.view.adapter.ShopRecyclerViewAdapter;
 import com.ifenqu.app.widget.ShopHeadView;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -60,6 +65,7 @@ public class ShopFragment extends BaseFragment implements OnHttpResponseListener
         ButterKnife.bind(this, view);
         initRecyclerView();
 
+        httpGetBanner();
         httpGetHot();
         httpGetBrand();
         httpGetNew();
@@ -84,6 +90,11 @@ public class ShopFragment extends BaseFragment implements OnHttpResponseListener
     private void httpGetNew() {
         if (!NetworkUtil.checkoutInternet())return;
         HttpRequest.getNewProducts(HttpConstant.URL_PRODUCT_V1_PRODUCTS_NEW_PRODUCT_INDEX,this);
+    }
+
+    private void httpGetBanner() {
+        if (!NetworkUtil.checkoutInternet())return;
+        HttpRequest.getBanner(HttpConstant.URL_BANNER_INDEX,this);
     }
 
     private void initRecyclerView() {
@@ -122,10 +133,6 @@ public class ShopFragment extends BaseFragment implements OnHttpResponseListener
 
     }
 
-    private View getView(int layoutResId) {
-        return LayoutInflater.from(getContext()).inflate(layoutResId, null, false);
-    }
-
     @Override
     public void onHttpResponse(int requestCode, String resultJson, Exception e) {
         if (requestCode == HttpConstant.URL_SIGNIN_PHONE_INDEX){
@@ -149,6 +156,21 @@ public class ShopFragment extends BaseFragment implements OnHttpResponseListener
             if (response== null)return;
             if (!response.checkDataValidate())return;
             mShopRecyclerViewAdapter.update(response.getData());
+        }else if (requestCode == HttpConstant.URL_BANNER_INDEX){
+            //请求的banner
+            Gson gson = new Gson();
+            BannerResponse bannerResponse = gson.fromJson(resultJson,BannerResponse.class);
+            if (bannerResponse == null){
+                shopHeadView.setBannerVisibility(false);
+                return;
+            }
+            List<BannerModel> bannerModel = bannerResponse.getData();
+            if (bannerModel == null || bannerModel.size() == 0){
+                shopHeadView.setBannerVisibility(false);
+                return;
+            }
+
+            shopHeadView.updateBanner(bannerModel);
         }
     }
 }

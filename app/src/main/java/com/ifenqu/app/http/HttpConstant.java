@@ -219,4 +219,13 @@ public class HttpConstant {
     public static String URL_UPDATE_PHONE = BASE_WECHAT_URL + "/personal/rest/update?";
     public static int URL_UPDATE_PHONE_INDEX = 25;
 
+    /**
+     * banner
+     * <p>
+     * https://rest.ifenqu.com/sys/v1/banner/SH_BANNER
+     * GET
+     */
+    public static String URL_BANNER = BASE_URL + "/sys/v1/banner/SH_BANNER";
+    public static int URL_BANNER_INDEX = 26;
+
 }
