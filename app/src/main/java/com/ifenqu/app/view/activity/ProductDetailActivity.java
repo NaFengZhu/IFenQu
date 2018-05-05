@@ -3,7 +3,7 @@ package com.ifenqu.app.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
@@ -31,7 +31,6 @@ import com.ifenqu.app.util.LoginUtil;
 import com.ifenqu.app.util.NetworkUtil;
 import com.ifenqu.app.util.StringUtil;
 import com.ifenqu.app.view.BaseActivity;
-import com.ifenqu.app.view.adapter.ProductDetailPagerAdapter;
 import com.ifenqu.app.widget.BottomMenuWindow;
 import com.ifenqu.app.widget.CommonTitleView;
 import com.ifenqu.app.widget.IFenQuWebView;
@@ -85,27 +84,6 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
     @BindView(R.id.scrollView)
     StickyScrollView scrollView;
 
-    @BindView(R.id.materialViewPager)
-    ViewPager materialViewPager;
-
-    @BindView(R.id.tv_detail)
-    TextView tv_detail;
-
-    @BindView(R.id.tv_explain)
-    TextView tv_explain;
-
-    @BindView(R.id.tv_qv)
-    TextView tv_qv;
-
-    @BindView(R.id.tv_detail_line)
-    View tv_detail_line;
-
-    @BindView(R.id.tv_explain_line)
-    View tv_explain_line;
-
-    @BindView(R.id.tv_qv_line)
-    View tv_qv_line;
-
     @BindView(R.id.banner_webView)
     IFenQuWebView banner_webView;
 
@@ -115,19 +93,21 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
     @BindView(R.id.each_term)
     TextView each_term;
 
-    @BindView(R.id.contentWebView)
-    IFenQuWebView contentWebView;
+    @BindView(R.id.ll_scroll_title)
+    TabLayout ll_scroll_title;
 
-    @BindView(R.id.pre_order_content)
-    IFenQuWebView pre_order_content;
+    @BindView(R.id.ifenqu_webView1)
+    IFenQuWebView ifenqu_webView1;
 
-    @BindView(R.id.qa_content)
-    IFenQuWebView qa_content;
+    @BindView(R.id.ifenqu_webView2)
+    IFenQuWebView ifenqu_webView2;
+
+    @BindView(R.id.ifenqu_webView3)
+    IFenQuWebView ifenqu_webView3;
 
     private static final int REQUEST_CODE_GOODS = 10;
 
     private String productId;
-    private ProductDetailPagerAdapter adapter;
     private List<GoodDetailModel> colorList = new ArrayList<>();
     private List<GoodDetailModel> styleList = new ArrayList<>();
     private GoodModel goodModel;
@@ -165,30 +145,42 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
         HttpRequest.getProductRelativedContent(productId, HttpConstant.URL_PRODUCT_REALATIVED_CONTENT_INDEX, this);
     }
 
-    private void updateCurrentFragment(int index) {
-//        materialViewPager.setCurrentItem(index, false);
-        if (index == 0) {
-            contentWebView.setVisibility(View.VISIBLE);
-            pre_order_content.setVisibility(View.GONE);
-            qa_content.setVisibility(View.GONE);
-        } else if (index == 1) {
-            contentWebView.setVisibility(View.GONE);
-            pre_order_content.setVisibility(View.VISIBLE);
-            qa_content.setVisibility(View.GONE);
-        } else if (index == 2) {
-            contentWebView.setVisibility(View.GONE);
-            pre_order_content.setVisibility(View.GONE);
-            qa_content.setVisibility(View.VISIBLE);
-        }
-    }
-
     private void initView() {
-        adapter = new ProductDetailPagerAdapter(getSupportFragmentManager());
-        materialViewPager.setAdapter(adapter);
-
-        updateCurrentFragment(0);
-
         banner_webView.setWebViewListener(this);
+
+        ll_scroll_title.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()){
+                    case 0:
+                        ifenqu_webView1.setVisibility(View.VISIBLE);
+                        ifenqu_webView2.setVisibility(View.GONE);
+                        ifenqu_webView3.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        ifenqu_webView1.setVisibility(View.GONE);
+                        ifenqu_webView2.setVisibility(View.VISIBLE);
+                        ifenqu_webView3.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        ifenqu_webView1.setVisibility(View.GONE);
+                        ifenqu_webView2.setVisibility(View.GONE);
+                        ifenqu_webView3.setVisibility(View.VISIBLE);
+                        break;
+                        default:
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void httpGetProductInfo() {
@@ -231,16 +223,17 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
                         banner_webView.loadHTML(productImageContent);
                         break;
                     case "DETAILS":
-                        contentWebView.loadHTML(model.getContent());
+                        ifenqu_webView1.loadHTML(model.getContent());
                         break;
                     case "BUY_EXPLAIN":
-                        pre_order_content.loadHTML(model.getContent());
+                        ifenqu_webView2.loadHTML(model.getContent());
                         break;
                     case "QA":
-                        pre_order_content.loadHTML(model.getContent());
+                        ifenqu_webView3.loadHTML(model.getContent());
                         break;
                 }
             }
+
         }
     }
 
@@ -331,7 +324,7 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
      * 一个business model 主要是用于在产品详情-选择产品类型款式之间操作的对象
      */
     private void generatedData() {
-        if (goodModel != null)return;
+        if (goodModel != null) return;
         if (productModel == null) return;
         List<ProductDetailGoodsModel> goodsList = productModel.getGoodsList();
         if (goodsList == null) return;
@@ -349,7 +342,7 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
         goodModel.setStyleTitle("版本");
         //productImageContent 是不同接口返回来的，所以选择在每次选择的时候，生成一下这个对象 GoodModel
         goodModel.setWebView_content(productImageContent);
-        if (priceList != null && priceList.size() > 0){
+        if (priceList != null && priceList.size() > 0) {
             goodModel.setLowPrice(priceList.get(0));
             goodModel.setHighPrice(priceList.get(priceList.size() - 1));
         }
@@ -369,6 +362,7 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
 
     /**
      * 从每个产品列表里删选出来 颜色、款式 类型
+     *
      * @param goodsDictDetailModelList
      */
     private void handleGoodDetailList(List<GoodDetailModel> goodsDictDetailModelList) {
@@ -424,86 +418,46 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
         ProductConfirmationActivity.start(this, colorModel);
     }
 
-    @OnClick({R.id.tv_qv_parent, R.id.tv_detail_parent, R.id.tv_explain_parent})
-    public void onClickTabs(View view) {
-        switch (view.getId()) {
-            case R.id.tv_qv_parent:
-                tv_explain.setTextColor(getResources().getColor(R.color.text_title_color));
-                tv_qv.setTextColor(getResources().getColor(R.color.tab_bg));
-                tv_detail.setTextColor(getResources().getColor(R.color.text_title_color));
-
-                tv_qv_line.setVisibility(View.VISIBLE);
-                tv_explain_line.setVisibility(View.INVISIBLE);
-                tv_detail_line.setVisibility(View.INVISIBLE);
-
-                updateCurrentFragment(2);
-                break;
-            case R.id.tv_detail_parent:
-                tv_explain.setTextColor(getResources().getColor(R.color.text_title_color));
-                tv_qv.setTextColor(getResources().getColor(R.color.text_title_color));
-                tv_detail.setTextColor(getResources().getColor(R.color.tab_bg));
-
-                tv_qv_line.setVisibility(View.INVISIBLE);
-                tv_explain_line.setVisibility(View.INVISIBLE);
-                tv_detail_line.setVisibility(View.VISIBLE);
-
-                updateCurrentFragment(0);
-                break;
-            case R.id.tv_explain_parent:
-                tv_explain.setTextColor(getResources().getColor(R.color.tab_bg));
-                tv_qv.setTextColor(getResources().getColor(R.color.text_title_color));
-                tv_detail.setTextColor(getResources().getColor(R.color.text_title_color));
-
-                tv_qv_line.setVisibility(View.INVISIBLE);
-                tv_explain_line.setVisibility(View.VISIBLE);
-                tv_detail_line.setVisibility(View.INVISIBLE);
-
-                updateCurrentFragment(1);
-                break;
-            default:
-        }
-
-    }
 
     @OnClick(R.id.ll_choose_goods)
     public void onClickChooseGoods(View view) {
         chooseGoods();
     }
 
-    private void clearColorSelected(){
-        if (goodModel == null)return;
+    private void clearColorSelected() {
+        if (goodModel == null) return;
         List<GoodDetailModel> list = goodModel.getColorList();
-        if (list != null){
+        if (list != null) {
             int num = list.size();
             for (int i = 0; i < num; i++) {
                 GoodDetailModel item = list.get(i);
-                if (item == null)continue;
+                if (item == null) continue;
                 item.setSelected(false);
             }
         }
     }
 
-    private void clearStyleSelected(){
-        if (goodModel == null)return;
+    private void clearStyleSelected() {
+        if (goodModel == null) return;
         List<GoodDetailModel> styleList = goodModel.getStyleList();
-        if (styleList != null){
+        if (styleList != null) {
             int num = styleList.size();
-            for (int i = 0; i <num ; i++) {
+            for (int i = 0; i < num; i++) {
                 GoodDetailModel item = styleList.get(i);
-                if (item == null)continue;
+                if (item == null) continue;
                 item.setSelected(false);
             }
         }
     }
 
-    private void selectedData(List<GoodDetailModel> tagItem, GoodDetailModel item){
-        if (tagItem == null)return;
-        if (item == null)return;
+    private void selectedData(List<GoodDetailModel> tagItem, GoodDetailModel item) {
+        if (tagItem == null) return;
+        if (item == null) return;
         int num = tagItem.size();
-        for (int i = 0; i < num ; i++) {
+        for (int i = 0; i < num; i++) {
             GoodDetailModel goodDetailModel = tagItem.get(i);
-            if (goodDetailModel == null)continue;
-            if (goodDetailModel.getGoodsId() == item.getGoodsId() && goodDetailModel.getSubTypeDictId() == item.getSubTypeDictId()){
+            if (goodDetailModel == null) continue;
+            if (goodDetailModel.getGoodsId() == item.getGoodsId() && goodDetailModel.getSubTypeDictId() == item.getSubTypeDictId()) {
                 goodDetailModel.setSelected(true);
             }
         }
@@ -520,19 +474,19 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
             colorModel = (GoodDetailModel) data.getSerializableExtra(ProductDetailActivity.BUNDLE_KEY_COLOR);
             styleModel = (GoodDetailModel) data.getSerializableExtra(ProductDetailActivity.BUNDLE_KEY_STYLE);
 
-             showTypeContent(true);
+            showTypeContent(true);
 
             clearColorSelected();
             clearStyleSelected();
 
-            if (colorModel == null && styleModel == null){
+            if (colorModel == null && styleModel == null) {
                 showTypeContent(false);
                 return;
             }
-            if (colorModel == null ){
-                if (styleModel != null){
+            if (colorModel == null) {
+                if (styleModel != null) {
                     tv_type_name.setText(styleModel.getName());
-                    selectedData(goodModel.getStyleList(),styleModel);
+                    selectedData(goodModel.getStyleList(), styleModel);
                     goodModel.setCurrentStyleItem(styleModel);
                     goodModel.setCurrentColorItem(null);
                 }
@@ -540,9 +494,9 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
             }
 
             if (styleModel == null) {
-                if (colorModel != null){
+                if (colorModel != null) {
                     tv_type_name.setText(colorModel.getName());
-                    selectedData(goodModel.getColorList(),colorModel);
+                    selectedData(goodModel.getColorList(), colorModel);
                     goodModel.setCurrentStyleItem(null);
                     goodModel.setCurrentColorItem(colorModel);
                 }
@@ -557,7 +511,7 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
             confirmBusinessModel.setStyleModel(styleModel);
             confirmBusinessModel.setProductName(productModel.getProductName());
             ProductDetailGoodsModel model = calculateCurrentPrice(colorModel, styleModel);
-            if (model != null){
+            if (model != null) {
                 confirmBusinessModel.setGoodsId(model.getGoodsId() + "");
                 confirmBusinessModel.setTotalPrice(String.valueOf(model.getAmount()));
             }
@@ -568,6 +522,7 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
     /**
      * 这快可能有坑，goodDetailMode没有是不依赖具体的某个产品的，
      * 所以要循环所有的产品就行匹配，看是否有某哥产品都包含colorModel&styleModel
+     *
      * @param colorModel
      * @param styleModel
      * @return
@@ -601,11 +556,11 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
                 hasColor = true;
                 model.setSelected(true);
                 goodModel.setCurrentColorItem(model);
-            }else if (model.getSubTypeDictId() == styleType){
+            } else if (model.getSubTypeDictId() == styleType) {
                 hasType = true;
                 model.setSelected(true);
                 goodModel.setCurrentStyleItem(model);
-            }else {
+            } else {
                 model.setSelected(false);
             }
 
@@ -629,17 +584,11 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
     public void onPause() {
         super.onPause();
         banner_webView.onPause();
-        contentWebView.onPause();
-        pre_order_content.onPause();
-        qa_content.onPause();
     }
 
     @Override
     public void onResume() {
         banner_webView.onResume();
-        contentWebView.onResume();
-        qa_content.onResume();
-        pre_order_content.onResume();
         super.onResume();
     }
 

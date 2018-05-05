@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:IfenquWebView="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:IfenquWebView="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.ifenqu.app.widget.CommonTitleView
@@ -12,10 +13,9 @@
 
     <com.emilsjolander.components.StickyScrollViewItems.StickyScrollView
         android:id="@+id/scrollView"
-        android:layout_below="@+id/comm_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/ll_bottom">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,8 +32,8 @@
                 <com.ifenqu.app.widget.IFenQuWebView
                     android:id="@+id/banner_webView"
                     android:layout_width="match_parent"
-                    IfenquWebView:webView_height_style="webView_wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    IfenquWebView:webView_height_style="webView_wrap_content" />
 
                 <View
                     android:layout_width="match_parent"
@@ -129,118 +129,53 @@
                     android:background="@color/line_border"></View>
             </LinearLayout>
 
-            <LinearLayout
+            <android.support.design.widget.TabLayout
                 android:id="@+id/ll_scroll_title"
-                android:tag="sticky"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
+                android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:tag="sticky"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/tab_bg"
+                app:tabIndicatorHeight="@dimen/dp_2"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/tab_bg"
+                app:tabTextColor="@color/black">
 
-                <RelativeLayout
-                    android:id="@+id/tv_detail_parent"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/product_tab_1" />
 
-                    <TextView
-                        android:id="@+id/tv_detail"
-                        style="@style/text_style_14_6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/product_tab_1" />
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/product_tab_2" />
 
-                    <View
-                        android:id="@+id/tv_detail_line"
-                        android:layout_width="65dp"
-                        android:layout_height="@dimen/dp_2"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:background="@color/tab_bg"></View>
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/product_tab_3" />
 
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/tv_explain_parent"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/tv_explain"
-                        style="@style/text_style_14_5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/product_tab_2" />
-
-                    <View
-                        android:id="@+id/tv_explain_line"
-                        android:layout_width="65dp"
-                        android:layout_height="@dimen/dp_2"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:background="@color/tab_bg"
-                        android:visibility="invisible"></View>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/tv_qv_parent"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/tv_qv"
-                        style="@style/text_style_14_5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/product_tab_3" />
-
-                    <View
-                        android:id="@+id/tv_qv_line"
-                        android:layout_width="65dp"
-                        android:layout_height="@dimen/dp_2"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:background="@color/tab_bg"
-                        android:visibility="invisible"></View>
-
-                </RelativeLayout>
-
-
-            </LinearLayout>
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/materialViewPager"
-                android:layout_width="match_parent"
-                android:layout_height="800dp"
-                android:orientation="vertical"
-                android:visibility="gone" />
+            </android.support.design.widget.TabLayout>
 
             <com.ifenqu.app.widget.IFenQuWebView
-                android:id="@+id/contentWebView"
-                IfenquWebView:webView_height_style="webView_wrap_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></com.ifenqu.app.widget.IFenQuWebView>
-
-            <com.ifenqu.app.widget.IFenQuWebView
-                android:id="@+id/pre_order_content"
-                IfenquWebView:webView_height_style="webView_wrap_content"
+                android:id="@+id/ifenqu_webView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"></com.ifenqu.app.widget.IFenQuWebView>
+                IfenquWebView:webView_height_style="webView_match_parent" />
 
             <com.ifenqu.app.widget.IFenQuWebView
-                android:id="@+id/qa_content"
-                IfenquWebView:webView_height_style="webView_wrap_content"
+                android:id="@+id/ifenqu_webView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"></com.ifenqu.app.widget.IFenQuWebView>
+                IfenquWebView:webView_height_style="webView_match_parent" />
+
+            <com.ifenqu.app.widget.IFenQuWebView
+                android:id="@+id/ifenqu_webView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                IfenquWebView:webView_height_style="webView_match_parent" />
 
 
         </LinearLayout>
@@ -249,8 +184,7 @@
     <LinearLayout
         android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_74"
-        android:layout_alignParentBottom="true">
+        android:layout_height="@dimen/dp_74">
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -367,4 +301,4 @@
 
 
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -203,10 +204,10 @@ public class IFenQuWebView extends LinearLayout {
         if (isSetCookie){
             setCookie(url);
         }
-        ifenqu_webView.setVisibility(GONE);
+//        ifenqu_webView.setVisibility(GONE);
         ifenqu_webView.loadDataWithBaseURL(null,url, "text/html", "utf-8",null);
-        ifenqu_webView.reload();
-        ifenqu_webView.setVisibility(VISIBLE);
+//        ifenqu_webView.reload();
+//        ifenqu_webView.setVisibility(VISIBLE);
     }
 
     public void setWebViewListener(IFenQuWebViewListener listener){
