@@ -64,11 +64,6 @@ public class ShopFragment extends BaseFragment implements OnHttpResponseListener
         httpGetBrand();
         httpGetNew();
         httpGetProductList();
-        // TODO: 26/3/18 如果有缓存数据 加载缓存数据
-        // TODO: 26/3/18 如果没有缓存数据 加载数据
-        // TODO: 26/3/18 检查网络
-        // TODO: 26/3/18 如果没有网络并且之前没有数据显示 显示无网络状态
-        // TODO: 26/3/18 请求商店数据
     }
 
     private void httpGetHot() {
@@ -83,7 +78,7 @@ public class ShopFragment extends BaseFragment implements OnHttpResponseListener
 
     private void httpGetProductList() {
         if (!NetworkUtil.checkoutInternet())return;
-        HttpRequest.getProductList(HttpConstant.URL_PRODUCT_LIST_INDEX,this);
+        HttpRequest.getShopProductList(HttpConstant.URL_PRODUCT_LIST_INDEX,this);
     }
 
     private void httpGetNew() {
@@ -134,10 +129,6 @@ public class ShopFragment extends BaseFragment implements OnHttpResponseListener
     @Override
     public void onHttpResponse(int requestCode, String resultJson, Exception e) {
         if (requestCode == HttpConstant.URL_SIGNIN_PHONE_INDEX){
-            // TODO: 26/3/18 获取成功
-            // TODO: 26/3/18 获取失败
-            // TODO: 26/3/18 判断当前是否有数据展示，没有显示无数据状态，有泽显示加载框框
-            // TODO: 26/3/18 如果有数据 缓存数据
         }else if (requestCode == HttpConstant.URL_PRODUCT_V1_PRODUCTS_HOT_SALE_INDEX){
             //热销榜
             Gson gson = new Gson();

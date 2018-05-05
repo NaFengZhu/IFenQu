@@ -47,6 +47,10 @@
             android:background="@drawable/to_alpha"
             android:text="取消"
             android:textColor="@color/text_title_color" />
+        <View
+            android:background="@color/line_border"
+            android:layout_width="@dimen/dp_0.5"
+            android:layout_height="match_parent"></View>
 
         <Button
             android:id="@+id/btnAlertDialogPositive"

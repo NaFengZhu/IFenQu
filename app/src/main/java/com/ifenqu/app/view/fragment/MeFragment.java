@@ -30,7 +30,6 @@ import com.ifenqu.app.widget.HeadView;
 import com.ifenqu.app.widget.ShopHeadView;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -93,24 +92,16 @@ public class MeFragment extends BaseFragment implements OnHttpResponseListener {
 
     private void httpGetProductList() {
         if (!NetworkUtil.checkoutInternet())return;
-        HttpRequest.getProductList(HttpConstant.URL_PRODUCT_LIST_INDEX,this);
+        HttpRequest.getReconmendProductList(HttpConstant.URL_PRODUCT_LIST_INDEX,this);
     }
 
     private void initRecyclerView() {
         RecyclerManager.getInstance().initWithGridLayoutmanager(rv_recyclerView, 3);
 
-//        initRecyclerViewHeadViews();
-
         mShopRecyclerViewAdapter = new ShopHeadAdapter(ShopHeadView.SHOP_HEAD_ITEM_HOT_TYPE);
         rv_recyclerView.setAdapter(mShopRecyclerViewAdapter);
 
         headView.setHttpResponseListener(MeFragment.this);
-    }
-
-    private void initRecyclerViewHeadViews() {
-        headView = new HeadView(getContext());
-        headView.setHttpResponseListener(MeFragment.this);
-        rv_recyclerView.addHeaderView(headView);
     }
 
     @Override
@@ -127,10 +118,12 @@ public class MeFragment extends BaseFragment implements OnHttpResponseListener {
             if (response == null)return;
             if (!response.checkDataValidate())return;
             List<ProductModel> list = response.getData();
-            List<ProductModel> temporyList = new ArrayList<>();
+            List<ProductModel> temporyList;
 
             if (list != null && list.size() > 3){
                 temporyList = list.subList(0,3);
+            }else {
+                temporyList = list;
             }
             mShopRecyclerViewAdapter.update(temporyList);
         }

@@ -293,7 +293,7 @@
             style="@style/text_style_20"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/product_btn_bg"
+            android:background="@drawable/confirm_bg"
             android:gravity="center"
             android:paddingLeft="@dimen/dp_25"
             android:paddingRight="@dimen/dp_25"

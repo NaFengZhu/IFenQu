@@ -171,7 +171,7 @@
     <string name="confirmation_str">%1$s %2$s</string>
 
     <string name="update_profile">完善个人资料</string>
-    <string name="product_detail_tip">爱分趣:请选择商品款型</string>
+    <string name="product_detail_tip">请选择商品款型</string>
 
 
 </resources>

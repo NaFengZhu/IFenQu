@@ -277,6 +277,28 @@ public class HttpRequest {
         HttpManager.getInstance().get(null, HttpConstant.URL_PRODUCT_LIST, requestCode, listener);
     }
 
+    /**
+     * 获取产品列表
+     *
+     * @param requestCode
+     * @param listener
+     */
+    public static void getShopProductList(final int requestCode, final OnHttpResponseListener listener) {
+        String url = HttpConstant.URL_PRODUCT_LIST + "/selection";
+        HttpManager.getInstance().get(null, url, requestCode, listener);
+    }
+
+    /**
+     * 推荐产品列表
+     *
+     * @param requestCode
+     * @param listener
+     */
+    public static void getReconmendProductList(final int requestCode, final OnHttpResponseListener listener) {
+        String url = HttpConstant.URL_PRODUCT_LIST + "/recommend";
+        HttpManager.getInstance().get(null, url, requestCode, listener);
+    }
+
 
     /**
      * 地址保存接口

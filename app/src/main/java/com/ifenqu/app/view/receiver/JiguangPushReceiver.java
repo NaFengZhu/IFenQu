@@ -24,6 +24,9 @@ import com.ifenqu.app.util.CacheConstant;
 import com.ifenqu.app.view.activity.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Stack;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -65,11 +68,11 @@ public class JiguangPushReceiver extends BroadcastReceiver {
         PushModel model = gson.fromJson(extras, PushModel.class);
         if (model == null)return;
         model.setTime(System.currentTimeMillis());
-        ArrayList<PushModel> list = (ArrayList<PushModel>) CacheUtils.getInstance().getSerializable(CacheConstant.KEY_PUSH_MESSAGES_LIST);
+        LinkedList<PushModel> list = (LinkedList<PushModel>) CacheUtils.getInstance().getSerializable(CacheConstant.KEY_PUSH_MESSAGES_LIST);
         if (list == null) {
-            list = new ArrayList<>();
+            list = new LinkedList<>();
         }
-        list.add(model);
+        list.offer(model);
         CacheUtils.getInstance().put(CacheConstant.KEY_PUSH_MESSAGES_LIST, list);
     }
 

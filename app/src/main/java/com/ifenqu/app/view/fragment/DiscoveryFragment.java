@@ -7,21 +7,17 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.format.DateUtils;
-
 import com.blankj.utilcode.util.CacheUtils;
-import com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout;
 import com.ifenqu.app.R;
 import com.ifenqu.app.app.Constants;
 import com.ifenqu.app.model.PushModel;
 import com.ifenqu.app.util.CacheConstant;
 import com.ifenqu.app.util.RecyclerManager;
-import com.ifenqu.app.view.adapter.CouponAdapter;
-import com.ifenqu.app.view.adapter.viewholder.ViewHolderConstant;
+import com.ifenqu.app.view.adapter.NewsAdapter;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
-import java.util.ArrayList;
-
+import java.util.Collections;
+import java.util.LinkedList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -32,9 +28,7 @@ public class DiscoveryFragment extends BaseStatusFragment {
 
     @BindView(R.id.rv_recyclerView)
     SwipeMenuRecyclerView rv_recyclerView;
-    //    @BindView(R.id.srl_refresh)
-//    SuperSwipeRefreshLayout srl_refresh;
-    private CouponAdapter couponAdapter;
+    private NewsAdapter couponAdapter;
     private PushNotificationReceiver pushNotificationReceiver;
 
     public DiscoveryFragment() {
@@ -64,28 +58,23 @@ public class DiscoveryFragment extends BaseStatusFragment {
     public void initViews() {
         ButterKnife.bind(this, getRootView());
         initRecyclerView();
-        // TODO: 26/3/18 如果有缓存数据 加载缓存数据
-        // TODO: 26/3/18 如果没有缓存数据 加载数据
-        // TODO: 26/3/18 检查网络
-        // TODO: 26/3/18 如果没有网络并且之前没有数据显示 显示无网络状态
-        // TODO: 26/3/18 请求消息数据数据
-
         getMessageList();
     }
 
     private void getMessageList() {
-        ArrayList<PushModel> list = (ArrayList<PushModel>) CacheUtils.getInstance().getSerializable(CacheConstant.KEY_PUSH_MESSAGES_LIST);
+        LinkedList<PushModel> list = (LinkedList<PushModel>) CacheUtils.getInstance().getSerializable(CacheConstant.KEY_PUSH_MESSAGES_LIST);
         if (list == null || list.size() == 0) {
             showWithoutData(R.drawable.no_news_icon, R.string.discovery_no_news);
             return;
         }
         showContentView();
+        Collections.reverse(list);
         couponAdapter.updateData(list);
     }
 
     private void initRecyclerView() {
         RecyclerManager.getInstance().initWithLinearLayoutmanager(rv_recyclerView);
-        couponAdapter = new CouponAdapter(ViewHolderConstant.TYPE_DISCOVERY);
+        couponAdapter = new NewsAdapter();
         rv_recyclerView.setAdapter(couponAdapter);
 
         commonTitleView.setBackBtnVisibility(false);

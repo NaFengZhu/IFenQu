@@ -5,4 +5,6 @@
         android:endColor="@color/login_btn_end"
         ></gradient>
 
+    <corners android:radius="@dimen/dp_5"></corners>
+
 </shape>
