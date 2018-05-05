@@ -29,6 +29,7 @@ public class WebViewActivity extends BaseStatusActivity implements TimerManager.
     public static final int TYPE_URL = 1;
     private static final int TIMER = 5000;
     private static String KEY_WEB_VIEW = "KEY_WEB_VIEW";
+    private static String KEY_TAB_BACK_NATIVE = "KEY_TAB_BACK_NATIVE";
 
     private int type_web_view;
     private boolean hasTimer;
@@ -42,6 +43,8 @@ public class WebViewActivity extends BaseStatusActivity implements TimerManager.
     @BindView(R.id.tv_skip)
     TextView tv_skip;
     private TimerManager timerManager;
+    private String currentPageTitle;
+    private boolean isBackToNative;
 
     @OnClick(R.id.tv_skip)
     public void OnClickSkip(View view) {
@@ -61,6 +64,22 @@ public class WebViewActivity extends BaseStatusActivity implements TimerManager.
         intent.putExtra(INTENT_TITLE, title);
         intent.putExtra(INTENT_URL, url);
         intent.putExtra(KEY_WEB_VIEW, TYPE_URL);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 获取启动这个Activity的Intent
+     *
+     * @param title
+     * @param url
+     */
+    public static void start(Context context, String title, String url,boolean isBackToNative) {
+        if (context == null) return;
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra(INTENT_TITLE, title);
+        intent.putExtra(INTENT_URL, url);
+        intent.putExtra(KEY_WEB_VIEW, TYPE_URL);
+        intent.putExtra(KEY_TAB_BACK_NATIVE, isBackToNative);
         context.startActivity(intent);
     }
 
@@ -142,6 +161,7 @@ public class WebViewActivity extends BaseStatusActivity implements TimerManager.
         ifenqu_webView.showProgressVisibility(true);
         ifenqu_webView.setWebViewListener(this);
 
+        isBackToNative = getIntent().getBooleanExtra(KEY_TAB_BACK_NATIVE,false);
         type_web_view = getIntent().getIntExtra(KEY_WEB_VIEW, TYPE_URL);
         url = getIntent().getStringExtra(INTENT_URL);
         if (StringUtil.isNotEmpty(url, true) == false) {
@@ -160,6 +180,12 @@ public class WebViewActivity extends BaseStatusActivity implements TimerManager.
 
     @Override
     public void onBackPressed() {
+
+        if ("订单详情".equalsIgnoreCase(currentPageTitle) && isBackToNative){
+            super.onBackPressed();
+            return;
+        }
+
         if (ifenqu_webView.canGoBack()) {
             ifenqu_webView.goBack();
             return;
@@ -207,6 +233,7 @@ public class WebViewActivity extends BaseStatusActivity implements TimerManager.
 
     @Override
     public void onReceivedTitle(String str) {
+        currentPageTitle = str;
         comm_title.setTitle(StringUtil.getTrimedString(str));
     }
 

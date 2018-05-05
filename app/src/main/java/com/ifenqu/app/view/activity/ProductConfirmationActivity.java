@@ -279,7 +279,7 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
                 return;
             }
 
-            WebViewActivity.start(this, "支付", response.getData());
+            WebViewActivity.start(this, "支付", response.getData(),true);
         }else if (requestCode == HttpConstant.URL_PRODUCT_COUNPON_INDEX){
             if (TextUtils.isEmpty(resultJson))return;
             Gson gson = new Gson();

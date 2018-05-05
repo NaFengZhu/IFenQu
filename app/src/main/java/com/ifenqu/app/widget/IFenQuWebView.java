@@ -43,6 +43,7 @@ public class IFenQuWebView extends LinearLayout {
         @Override
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
+            LogUtils.d("当前的 title - "+title);
             if (listener != null){
                 listener.onReceivedTitle(title);
             }
@@ -60,7 +61,6 @@ public class IFenQuWebView extends LinearLayout {
     private WebViewClient mWebViewClient = new WebViewClient(){
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            LogUtils.d("当前的 url - "+url);
             ifenqu_webView.loadUrl(url,setCookie(url));
             return true;
         }
