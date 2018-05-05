@@ -24,6 +24,8 @@ import com.ifenqu.app.R;
 import com.ifenqu.app.util.LoginUtil;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 专供爱分趣使用，其他产品请绕道
@@ -37,7 +39,6 @@ public class IFenQuWebView extends LinearLayout {
     private IFenQuWebViewListener listener;
     private boolean isOpenInject = true; //默认是打开的
     private boolean isShowProgress;
-    private boolean isSetCookie;
     private WebChromeClient mWebChromClient = new WebChromeClient(){
         @Override
         public void onReceivedTitle(WebView view, String title) {
@@ -60,7 +61,7 @@ public class IFenQuWebView extends LinearLayout {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             LogUtils.d("当前的 url - "+url);
-            ifenqu_webView.loadUrl(url);
+            ifenqu_webView.loadUrl(url,setCookie(url));
             return true;
         }
 
@@ -171,17 +172,17 @@ public class IFenQuWebView extends LinearLayout {
         }
     }
 
-    public void setCookie(boolean isSet){
-        this.isSetCookie = isSet;
-    }
+    private Map<String,String> setCookie(String url){
+//        CookieManager cookieManager = CookieManager.getInstance();
+//        cookieManager.setAcceptCookie(true);
+//        String value = "ifq_access_token=" + LoginUtil.getLoginToken().getAccessToken() + ";Max-Age=; Expires=" + LoginUtil.getLoginToken().getAccessTokenExpire() + ";Domain=ifenqu.com;Path=/";
+//        String value1 = "ifq_refresh_token=" + LoginUtil.getLoginToken().getRefreshToken() + ";Max-Age=; Expires=" + LoginUtil.getLoginToken().getRefreshTokenExpire() + ";Domain=ifenqu.com;Path=/";
+//        cookieManager.setCookie(url, value);
+//        cookieManager.setCookie(url, value1);
+        Map<String,String> header= new HashMap<>();
+        header.put("ifq_access_token",LoginUtil.getLoginToken().getAccessToken());
+        return header;
 
-    private void setCookie(String url){
-        CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.setAcceptCookie(true);
-        String value = "ifq_access_token=" + LoginUtil.getLoginToken().getAccessToken() + ";Max-Age=; Expires=" + LoginUtil.getLoginToken().getAccessTokenExpire() + ";Domain=ifenqu.com;Path=/";
-        String value1 = "ifq_refresh_token=" + LoginUtil.getLoginToken().getRefreshToken() + ";Max-Age=; Expires=" + LoginUtil.getLoginToken().getRefreshTokenExpire() + ";Domain=ifenqu.com;Path=/";
-        cookieManager.setCookie(url, value);
-        cookieManager.setCookie(url, value1);
     }
 
     /**
@@ -189,9 +190,6 @@ public class IFenQuWebView extends LinearLayout {
      * @param url
      */
     public void loadUrl(String url){
-        if (isSetCookie){
-            setCookie(url);
-        }
         ifenqu_webView.loadUrl(url);
     }
 
@@ -201,9 +199,6 @@ public class IFenQuWebView extends LinearLayout {
      * @param url
      */
     public void loadHTML(String url){
-        if (isSetCookie){
-            setCookie(url);
-        }
 //        ifenqu_webView.setVisibility(GONE);
         ifenqu_webView.loadDataWithBaseURL(null,url, "text/html", "utf-8",null);
 //        ifenqu_webView.reload();

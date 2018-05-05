@@ -153,7 +153,6 @@ public class WebViewActivity extends BaseStatusActivity implements TimerManager.
             ifenqu_webView.loadHTML(url);
         } else {
             url = StringUtil.getCorrectUrl(url);
-            ifenqu_webView.setCookie(false);
             ifenqu_webView.startUpInjectCSS(false);
             ifenqu_webView.loadUrl(url);
         }
