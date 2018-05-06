@@ -63,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/product_bottom_text1" />
+                        android:text="￥" />
 
                     <TextView
                         android:id="@+id/total_price"
@@ -81,6 +81,7 @@
                     android:layout_height="@dimen/dp_0.5"
                     android:layout_centerInParent="true"
                     android:background="@color/line_border"
+                    android:visibility="invisible"
                     android:paddingRight="@dimen/dp_45" />
 
                 <LinearLayout
@@ -90,27 +91,36 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/text_style_14_8"
+                        style="@style/text_style_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/product_bottom_text2" />
+                        android:text="每期 ￥" />
 
                     <TextView
                         android:id="@+id/tv_each_terms_price"
-                        style="@style/text_style_16_5"
+                        style="@style/text_style_14_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_2"
                         android:gravity="center"/>
 
                     <TextView
-                        android:id="@+id/tv_free"
-                        style="@style/text_style_12_1"
+                        android:id="@+id/tv_each_terms_price_tag"
+                        style="@style/text_style_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_3"
-                        android:background="@drawable/product_bottom_bg2"
+                        android:layout_marginLeft="@dimen/dp_1"
+                        android:gravity="center"
+                        android:text="起" />
+
+                    <TextView
+                        android:id="@+id/tv_free"
+                        style="@style/text_style_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:background="@drawable/product_bottom_bg3"
                         android:gravity="center"
                         android:paddingBottom="@dimen/dp_2"
                         android:paddingLeft="@dimen/dp_4"

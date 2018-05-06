@@ -23,12 +23,24 @@ import java.util.List;
 public class SplashActivity extends BaseActivity implements OnHttpResponseListener{
 
     private static final int TIMER = 2000;
+    private static final int MESSAGE_WHAT_MAINACTIVITY = 0;
+    private static final int MESSAGE_WHAT_CONFIGACTIVITY = 1;
 
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            goMain();
+            int index = msg.what;
+            if (index == MESSAGE_WHAT_MAINACTIVITY){
+                goMain();
+            }else if (index == MESSAGE_WHAT_CONFIGACTIVITY){
+                List<SplashModel> modelList = (List<SplashModel>) msg.obj;
+                if (modelList != null){
+                    SplashModel model = modelList.get(0);
+                    WebViewActivity.startHtml(SplashActivity.this,model.getContent(),true,false);
+                    finish();
+                }
+            }
         }
     };
 
@@ -73,14 +85,23 @@ public class SplashActivity extends BaseActivity implements OnHttpResponseListen
                 sendMessageToHandler();
                 return;
             }
-            List<SplashModel> modelList = response.getData();
-            SplashModel model = modelList.get(0);
-            WebViewActivity.startHtml(this,model.getContent(),true,false);
-            finish();
+
+            if (this.isFinishing())return;
+            Message message = mHandler.obtainMessage();
+            message.what = MESSAGE_WHAT_CONFIGACTIVITY;
+            message.obj = response.getData();
+            mHandler.sendMessage(message);
         }
     }
 
     private void sendMessageToHandler(){
-        mHandler.sendEmptyMessageDelayed(0,TIMER);
+        mHandler.sendEmptyMessageDelayed(MESSAGE_WHAT_MAINACTIVITY,TIMER);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        mHandler.removeMessages(MESSAGE_WHAT_MAINACTIVITY);
+        mHandler.removeMessages(MESSAGE_WHAT_CONFIGACTIVITY);
     }
 }

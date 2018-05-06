@@ -27,10 +27,15 @@ import com.ifenqu.app.view.BaseActivity;
 import com.ifenqu.app.view.activity.ProductConfirmationActivity;
 import com.ifenqu.app.view.activity.ProductDetailActivity;
 import com.ifenqu.app.view.adapter.ProductDetailAdapter;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.text.DecimalFormat;
+import java.util.Collections;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -55,6 +60,9 @@ public class BottomMenuWindow extends BaseActivity implements IFenQuWebView.IFen
 
     @BindView(R.id.tv_each_terms_price)
     TextView tv_each_terms_price;
+
+    @BindView(R.id.tv_each_terms_price_tag)
+    TextView tv_each_terms_price_tag;
 
     @BindView(R.id.wv_product_img)
     IFenQuWebView wv_product_img;
@@ -88,6 +96,7 @@ public class BottomMenuWindow extends BaseActivity implements IFenQuWebView.IFen
         vBaseBottomWindowRoot.startAnimation(AnimationUtils.loadAnimation(this, R.anim.bottom_window_enter));
         initViews();
         setData();
+        setInitialPrice();
     }
 
     private void setData() {
@@ -98,28 +107,29 @@ public class BottomMenuWindow extends BaseActivity implements IFenQuWebView.IFen
 
         colorModel = goodModel.getCurrentColorItem();
         styleModel = goodModel.getCurrentStyleItem();
-
-        setInitialPrice();
     }
 
     private void setInitialPrice() {
-        if (goodModel == null)return;
+        if (goodModel == null) return;
         String priceStr, termPrice;
-        if (colorModel != null && styleModel != null){
-            calculateCurrentPrice();
-            return;
-        }
 
         if (goodModel.isOnlyOnePrice()) {
-            termPrice = StringUtil.getPrice(goodModel.getTermsPrice(), StringUtil.PRICE_FORMAT_PREFIX);
-            priceStr = StringUtil.getPrice(goodModel.getLowPrice(), StringUtil.PRICE_FORMAT_PREFIX);
+            termPrice = StringUtil.getPrice(goodModel.getTermsPrice());
+            priceStr = StringUtil.getPrice(goodModel.getLowPrice());
         } else {
-            termPrice = StringUtil.getPrice(goodModel.getTermsPrice(), StringUtil.PRICE_FORMAT_PREFIX) + "起";
-            priceStr = StringUtil.getPrice(goodModel.getLowPrice(), StringUtil.PRICE_FORMAT_PREFIX) + " - " + StringUtil.getPrice(goodModel.getHighPrice(), StringUtil.PRICE_FORMAT_PREFIX);
+            termPrice = StringUtil.getPrice(goodModel.getTermsPrice());
+            priceStr = StringUtil.getPrice(goodModel.getLowPrice()) + " - " + StringUtil.getPrice(goodModel.getHighPrice());
         }
 
+        tv_each_terms_price_tag.setVisibility(goodModel.isOnlyOnePrice() ? View.GONE : View.VISIBLE);
         tv_each_terms_price.setText(termPrice);
         total_price.setText(priceStr);
+    }
+
+    private String generatedPriceInfo(double productPrice) {
+        double result = productPrice / 12;
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        return decimalFormat.format(result);
     }
 
     @OnClick(R.id.view_empty)
@@ -252,9 +262,10 @@ public class BottomMenuWindow extends BaseActivity implements IFenQuWebView.IFen
                 ProductDetailGoodsModel item = goodsModelList.get(i);
                 if (item == null) continue;
                 boolean isHas = calculateCurrentType(item.getGoodsDictDetailModelList());
+                tv_each_terms_price_tag.setVisibility(isHas?View.GONE:View.VISIBLE);
                 if (isHas) {
-                    total_price.setText(StringUtil.getPrice(item.getAmount(), StringUtil.PRICE_FORMAT_PREFIX));
-                    tv_each_terms_price.setText(StringUtil.getPrice(item.getAmount() / 12, StringUtil.PRICE_FORMAT_PREFIX));
+                    total_price.setText(StringUtil.getPrice(item.getAmount()));
+                    tv_each_terms_price.setText(generatedPriceInfo(item.getAmount()));
                     return;
                 }
             }

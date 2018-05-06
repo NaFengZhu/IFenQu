@@ -38,6 +38,10 @@ public class TimerManager {
             countDownTimer.cancel();
             countDownTimer = null;
         }
+
+        if (listener != null){
+            listener = null;
+        }
     }
 
 

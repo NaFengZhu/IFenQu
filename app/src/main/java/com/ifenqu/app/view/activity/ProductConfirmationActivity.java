@@ -29,6 +29,7 @@ import com.ifenqu.app.util.StringUtil;
 import com.ifenqu.app.view.BaseActivity;
 import com.ifenqu.app.widget.AlertDialog;
 import com.ifenqu.app.widget.CommonTitleView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -116,33 +117,27 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!LoginUtil.checkLoginStatus()) {
-            LoginActivity.start(this);
-        }
-
         setContentView(R.layout.activity_confirmation);
         ButterKnife.bind(this);
         comm_title.setTitle(R.string.product_confirmation_title);
 
         initData();
+        httpGetProductCouponTag();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        httpGetProductCouponTag();
     }
 
     private void httpGetProductCouponTag() {
-        if (confirmBusinessModel == null)return;
-        HttpRequest.getProductCouponInfo(confirmBusinessModel.getProductId(), HttpConstant.URL_PRODUCT_COUNPON_INDEX,this);
+        if (confirmBusinessModel == null) return;
+        HttpRequest.getProductCouponInfo(confirmBusinessModel.getProductId(), HttpConstant.URL_PRODUCT_COUNPON_INDEX, this);
     }
 
     private void initData() {
         confirmBusinessModel = (ConfirmBusinessModel) getIntent().getSerializableExtra(KEY_BUNDLE);
         if (confirmBusinessModel == null) return;
-
-        httpGetProductCouponTag();
 
         confirm_product_name.setText(confirmBusinessModel.getProductName());
         if (confirmBusinessModel.getColorModel() != null && confirmBusinessModel.getStyleModel() != null) {
@@ -156,22 +151,22 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
         confirm_product_discount.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         //中间横线textview.getPaint()
         confirm_product_discount.getPaint().setAntiAlias(true);
-        tv_product_calculate_price.setText(StringUtil.getPrice(confirmBusinessModel.getTotalPrice(),StringUtil.PRICE_FORMAT_PREFIX));
+        tv_product_calculate_price.setText(StringUtil.getPrice(confirmBusinessModel.getTotalPrice(), StringUtil.PRICE_FORMAT_PREFIX));
         tv_final_price.setText(StringUtil.getPrice(confirmBusinessModel.getTotalPrice(), StringUtil.PRICE_FORMAT_PREFIX));
         tv_pay_price.setText(StringUtil.getPrice(confirmBusinessModel.getTotalPrice(), StringUtil.PRICE_FORMAT_PREFIX));
-        each_term.setText(StringUtil.getPrice(Double.parseDouble(confirmBusinessModel.getTotalPrice()) / 12,StringUtil.PRICE_FORMAT_PREFIX));
+        each_term.setText(StringUtil.getPrice(Double.parseDouble(confirmBusinessModel.getTotalPrice()) / 12, StringUtil.PRICE_FORMAT_PREFIX));
 
-        if (LoginUtil.getLoginToken() != null && !TextUtils.isEmpty(LoginUtil.getLoginToken().getAccessToken())){
+        if (LoginUtil.getLoginToken() != null && !TextUtils.isEmpty(LoginUtil.getLoginToken().getAccessToken())) {
             String cacheStr = CacheUtils.getInstance().getString(CacheConstant.KEY_CACHE_ADDRESS + LoginUtil.getLoginToken().getAccessToken());
-            if (!TextUtils.isEmpty(cacheStr)){
+            if (!TextUtils.isEmpty(cacheStr)) {
                 Gson gson = new Gson();
-                try{
-                    addressBusiness = gson.fromJson(cacheStr,AddressBusiness.class);
-                    if (addressBusiness !=null){
+                try {
+                    addressBusiness = gson.fromJson(cacheStr, AddressBusiness.class);
+                    if (addressBusiness != null) {
                         tv_address_title.setText(addressBusiness.getName() + " " + addressBusiness.getPhone());
                         tv_address_subtitle.setText(addressBusiness.getProvince().getName() + " " + addressBusiness.getCity().getName() + addressBusiness.getArea().getName() + addressBusiness.getSpecificAddress());
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -184,14 +179,14 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
             return;
         }
 //        getIntent().getBundleExtra()
-        HttpRequest.makeOrder(confirmBusinessModel.getTotalPrice(),confirmBusinessModel.getTotalPrice(),"","",confirmBusinessModel.getProductId(),confirmBusinessModel.getGoodsId(),
-                addressBusiness.getAddressCode(),HttpConstant.URL_MALL_ORDER_INDEX,this);
+        HttpRequest.makeOrder(confirmBusinessModel.getTotalPrice(), confirmBusinessModel.getTotalPrice(), "", "", confirmBusinessModel.getProductId(), confirmBusinessModel.getGoodsId(),
+                addressBusiness.getAddressCode(), HttpConstant.URL_MALL_ORDER_INDEX, this);
 
     }
 
     @OnClick({R.id.tv_new_address_parent, R.id.tv_address_parent})
     public void newAddress(View view) {
-        AddressModificationActivity.start(this,addressBusiness, REQUEST_CODE_ADDRESS);
+        AddressModificationActivity.start(this, addressBusiness, REQUEST_CODE_ADDRESS);
     }
 
     @OnClick(R.id.tv_buy_now)
@@ -233,10 +228,10 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
             if (addressBusiness == null) return;
 
             Gson gson = new Gson();
-            LogUtils.d("JSON -"+gson.toJson(addressBusiness));
+            LogUtils.d("JSON -" + gson.toJson(addressBusiness));
             //保存地址
-            if (LoginUtil.getLoginToken() != null && !TextUtils.isEmpty(LoginUtil.getLoginToken().getAccessToken())){
-                CacheUtils.getInstance().put(CacheConstant.KEY_CACHE_ADDRESS + LoginUtil.getLoginToken().getAccessToken(),gson.toJson(addressBusiness));
+            if (LoginUtil.getLoginToken() != null && !TextUtils.isEmpty(LoginUtil.getLoginToken().getAccessToken())) {
+                CacheUtils.getInstance().put(CacheConstant.KEY_CACHE_ADDRESS + LoginUtil.getLoginToken().getAccessToken(), gson.toJson(addressBusiness));
             }
 
             updateContent(true);
@@ -253,7 +248,7 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
                 //公司
                 iv_receipt_type.setText(business.getCompanyTitle());
             }
-        }else if (requestCode == REQUEST_CODE_COUPONS){
+        } else if (requestCode == REQUEST_CODE_COUPONS) {
 //            tv_discount_amount.setText();
         }
     }
@@ -265,9 +260,9 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
 
     @OnClick(R.id.rr_confirmation_coupon)
     public void onClickConfirmationCoupon(View view) {
-        if (couponTags != null){
-            ConfirmationCouponActivity.start(this,couponTags,REQUEST_CODE_COUPONS);
-        }else {
+        if (couponTags != null) {
+            ConfirmationCouponActivity.start(this, couponTags, REQUEST_CODE_COUPONS);
+        } else {
             ToastUtils.showShort("目前没有可使用的优惠券");
         }
     }
@@ -286,12 +281,12 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
                 return;
             }
 
-            WebViewActivity.start(this, "支付", response.getData(),true);
-        }else if (requestCode == HttpConstant.URL_PRODUCT_COUNPON_INDEX){
-            if (TextUtils.isEmpty(resultJson))return;
+            WebViewActivity.start(this, "支付", response.getData(), true);
+        } else if (requestCode == HttpConstant.URL_PRODUCT_COUNPON_INDEX) {
+            if (TextUtils.isEmpty(resultJson)) return;
             Gson gson = new Gson();
-            ProductCouponTagResponse response = gson.fromJson(resultJson,ProductCouponTagResponse.class);
-            if (response == null)return;
+            ProductCouponTagResponse response = gson.fromJson(resultJson, ProductCouponTagResponse.class);
+            if (response == null) return;
             couponTags = response.getData();
         }
     }

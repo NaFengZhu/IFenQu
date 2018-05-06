@@ -9,6 +9,7 @@ public class ProductCouponTagResponse extends Response {
 
     public String[] getData() {
         String result = "";
+        if (data == null)return new String[]{};
         if (data.endsWith(",")) {
             result = data.substring(0, data.lastIndexOf(","));
             LogUtils.d("result- 类型" + result);
