@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
+    android:id="@+id/ll_item_parent"
     android:orientation="vertical">
 
     <View
@@ -40,10 +41,10 @@
                     android:text="¥" />
 
                 <TextView
+                    android:id="@+id/tv_validate_amount"
                     style="@style/text_style_28"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="100" />
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <RelativeLayout
@@ -51,12 +52,13 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_validate_content"
                     style="@style/text_style_12"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="3C订单满3000元可用" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/tv_validate_use"
                     android:layout_width="@dimen/dp_18"
                     android:layout_height="@dimen/dp_18"
                     android:background="@drawable/receipt_bg"
@@ -64,11 +66,11 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_validate_time"
                 style="@style/text_style_10_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="有效期 2018-08-12 至 2018-10-10" />
+                android:layout_alignParentRight="true" />
 
             <View style="@style/view_border_style"></View>
 

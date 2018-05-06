@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout;
 import com.ifenqu.app.R;
+import com.ifenqu.app.model.CouponModel;
 import com.ifenqu.app.model.SysOrderModel;
 import com.ifenqu.app.util.NetworkUtil;
 import com.ifenqu.app.util.RecyclerManager;
@@ -47,9 +48,9 @@ public class BaseCouponFragment extends BaseStatusFragment {
         rv_recyclerView.setAdapter(mCouponAdapter);
     }
 
-    public void updateAdapter(List<SysOrderModel> objectList){
+    public void updateAdapter(List<CouponModel> objectList){
         if (mCouponAdapter != null){
-//            mCouponAdapter.updateData(objectList);
+            mCouponAdapter.updateData(objectList);
         }
     }
 
@@ -59,5 +60,9 @@ public class BaseCouponFragment extends BaseStatusFragment {
 
     public boolean checkoutNetWork(){
         return NetworkUtil.checkoutInternet();
+    }
+
+    public SuperSwipeRefreshLayout getRefreshView(){
+        return srl_refresh;
     }
 }

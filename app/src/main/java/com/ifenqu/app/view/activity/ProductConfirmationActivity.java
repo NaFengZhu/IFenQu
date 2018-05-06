@@ -20,8 +20,10 @@ import com.ifenqu.app.http.response.OnHttpResponseListener;
 import com.ifenqu.app.http.response.OrderResponse;
 import com.ifenqu.app.model.AddressBusiness;
 import com.ifenqu.app.model.ConfirmBusinessModel;
+import com.ifenqu.app.model.CouponModel;
 import com.ifenqu.app.model.ProductCouponTagResponse;
 import com.ifenqu.app.model.ReceiptBusiness;
+import com.ifenqu.app.model.TicketTagsModel;
 import com.ifenqu.app.util.CacheConstant;
 import com.ifenqu.app.util.LoginUtil;
 import com.ifenqu.app.util.NetworkUtil;
@@ -29,6 +31,8 @@ import com.ifenqu.app.util.StringUtil;
 import com.ifenqu.app.view.BaseActivity;
 import com.ifenqu.app.widget.AlertDialog;
 import com.ifenqu.app.widget.CommonTitleView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,6 +97,9 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
     @BindView(R.id.tv_discount_amount)
     TextView tv_discount_amount;
 
+    @BindView(R.id.tv_save)
+    TextView tv_save;
+
     /**
      * 减去优惠券以后的价格
      */
@@ -105,6 +112,7 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
     private AddressBusiness addressBusiness;
     private ConfirmBusinessModel confirmBusinessModel;
     private String[] couponTags;
+    private CouponModel couponModel;
 
     public static void start(Context context, ConfirmBusinessModel colorModel) {
         if (context == null) return;
@@ -178,8 +186,7 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
         if (!NetworkUtil.checkoutInternet()) {
             return;
         }
-//        getIntent().getBundleExtra()
-        HttpRequest.makeOrder(confirmBusinessModel.getTotalPrice(), confirmBusinessModel.getTotalPrice(), "", "", confirmBusinessModel.getProductId(), confirmBusinessModel.getGoodsId(),
+        HttpRequest.makeOrder(confirmBusinessModel.getTotalPrice(), confirmBusinessModel.getFinalPrice()+"", couponModel.getTicketTags().get(0).getTicketTagId()+"", couponModel.getCards().getCardId()+"", confirmBusinessModel.getProductId(), confirmBusinessModel.getGoodsId(),
                 addressBusiness.getAddressCode(), HttpConstant.URL_MALL_ORDER_INDEX, this);
 
     }
@@ -249,7 +256,19 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
                 iv_receipt_type.setText(business.getCompanyTitle());
             }
         } else if (requestCode == REQUEST_CODE_COUPONS) {
-//            tv_discount_amount.setText();
+            couponModel = (CouponModel) data.getSerializableExtra("zhunafeng123");
+            if (couponModel == null)return;
+            List<TicketTagsModel> list = couponModel.getTicketTags();
+            if (list == null)return;
+            TicketTagsModel model = list.get(0);
+            if (model == null)return;
+            tv_discount_amount.setText(model.getTicketAmount() + "");
+            tv_save.setText(String.format("已节省￥ %s",StringUtil.getPrice(model.getTicketAmount(), StringUtil.PRICE_FORMAT_PREFIX)));
+            double finalPrice = Double.parseDouble(confirmBusinessModel.getTotalPrice()) - model.getTicketAmount();
+            tv_final_price.setText(StringUtil.getPrice(finalPrice, StringUtil.PRICE_FORMAT_PREFIX));
+            each_term.setText(StringUtil.getPrice(finalPrice / 12, StringUtil.PRICE_FORMAT_PREFIX));
+            confirmBusinessModel.setFinalPrice(finalPrice);
+            tv_pay_price.setText(StringUtil.getPrice(finalPrice, StringUtil.PRICE_FORMAT_PREFIX));
         }
     }
 

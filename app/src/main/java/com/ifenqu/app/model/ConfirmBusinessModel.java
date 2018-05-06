@@ -10,6 +10,15 @@ public class ConfirmBusinessModel implements Serializable {
     private String discount;
     private GoodDetailModel colorModel;
     private GoodDetailModel styleModel;
+    private double finalPrice;
+
+    public double getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(double finalPrice) {
+        this.finalPrice = finalPrice;
+    }
 
     public String getGoodsId() {
         return goodsId;

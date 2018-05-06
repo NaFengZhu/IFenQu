@@ -3,8 +3,7 @@ package com.ifenqu.app.view.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.ifenqu.app.model.IBaseModel;
-import com.ifenqu.app.model.PushModel;
+import com.ifenqu.app.model.CouponModel;
 import com.ifenqu.app.view.adapter.viewholder.BaseViewHolder;
 import com.ifenqu.app.view.adapter.viewholder.ConfirmationCouponAvailableVHolder;
 import com.ifenqu.app.view.adapter.viewholder.ConfirmationCouponUnAvailableVHolder;
@@ -22,7 +21,7 @@ import java.util.List;
 public class CouponAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private int viewType;
-    private List<PushModel> objectList = new ArrayList<>();
+    private List<CouponModel> objectList = new ArrayList<>();
 
     public CouponAdapter(int viewType) {
         this.viewType = viewType;
@@ -72,7 +71,7 @@ public class CouponAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      *
      * @param objectList
      */
-    public void updateData(List<PushModel> objectList) {
+    public void updateData(List<CouponModel> objectList) {
         this.objectList = objectList;
         notifyDataSetChanged();
     }

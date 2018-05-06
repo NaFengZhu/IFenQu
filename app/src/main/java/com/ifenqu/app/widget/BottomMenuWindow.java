@@ -21,9 +21,11 @@ import com.ifenqu.app.model.GoodDetailModel;
 import com.ifenqu.app.model.GoodModel;
 import com.ifenqu.app.model.ProductDetailGoodsModel;
 import com.ifenqu.app.model.eventbusmodel.ProductDetailEven;
+import com.ifenqu.app.util.LoginUtil;
 import com.ifenqu.app.util.RecyclerManager;
 import com.ifenqu.app.util.StringUtil;
 import com.ifenqu.app.view.BaseActivity;
+import com.ifenqu.app.view.activity.LoginActivity;
 import com.ifenqu.app.view.activity.ProductConfirmationActivity;
 import com.ifenqu.app.view.activity.ProductDetailActivity;
 import com.ifenqu.app.view.adapter.ProductDetailAdapter;
@@ -186,6 +188,11 @@ public class BottomMenuWindow extends BaseActivity implements IFenQuWebView.IFen
 
         if (styleModel == null) {
             ToastUtils.showShort("请选择版本配置");
+            return;
+        }
+
+        if (!LoginUtil.checkLoginStatus()) {
+            LoginActivity.start(this);
             return;
         }
 

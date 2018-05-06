@@ -40,6 +40,7 @@
                     android:text="¥" />
 
                 <TextView
+                    android:id="@+id/tv_validate_amount"
                     style="@style/text_style_28"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,12 +52,14 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_validate_content"
                     style="@style/text_style_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3C订单满3000元可用" />
 
                 <TextView
+                    android:id="@+id/tv_validate_use"
                     style="@style/text_style_14_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,6 +68,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_validate_time"
                 style="@style/text_style_10_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

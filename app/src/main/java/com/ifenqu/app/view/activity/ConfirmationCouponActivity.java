@@ -1,7 +1,6 @@
 package com.ifenqu.app.view.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -12,12 +11,20 @@ import com.google.gson.Gson;
 import com.ifenqu.app.R;
 import com.ifenqu.app.http.HttpConstant;
 import com.ifenqu.app.http.HttpRequest;
+import com.ifenqu.app.http.response.CouponResponse;
 import com.ifenqu.app.http.response.OnHttpResponseListener;
-import com.ifenqu.app.model.ProductCouponTagResponse;
+import com.ifenqu.app.model.CouponModel;
+import com.ifenqu.app.model.eventbusmodel.CouponEvent;
 import com.ifenqu.app.util.NetworkUtil;
 import com.ifenqu.app.view.BaseActivity;
 import com.ifenqu.app.view.adapter.ConfirmationCouponPagerAdapter;
 import com.ifenqu.app.widget.CommonTitleView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +45,7 @@ public class ConfirmationCouponActivity extends BaseActivity implements OnHttpRe
     @BindView(R.id.comm_title)
     CommonTitleView comm_title;
     private String[] couponTags;
+    private ConfirmationCouponPagerAdapter couponViewPagerAdapter;
 
     public static void start(Activity context, String[] tags,int requestCode) {
         if (context == null) return;
@@ -59,6 +67,13 @@ public class ConfirmationCouponActivity extends BaseActivity implements OnHttpRe
 
         couponTags = getIntent().getStringArrayExtra(KEY_COUPON_TAG);
         httpPostCouponInfo();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     private void httpPostCouponInfo() {
@@ -71,8 +86,8 @@ public class ConfirmationCouponActivity extends BaseActivity implements OnHttpRe
     }
 
     private void initViewPager() {
-        ConfirmationCouponPagerAdapter couponViewPagerAdapter = new ConfirmationCouponPagerAdapter(getSupportFragmentManager());
-        vp_viewPager.setAdapter(couponViewPagerAdapter);
+//        couponViewPagerAdapter = new ConfirmationCouponPagerAdapter(getSupportFragmentManager());
+//        vp_viewPager.setAdapter(couponViewPagerAdapter);
     }
 
     @Override
@@ -80,6 +95,27 @@ public class ConfirmationCouponActivity extends BaseActivity implements OnHttpRe
         if (requestCode == HttpConstant.URL_USER_COUNPONS_INDEX){
             if (TextUtils.isEmpty(resultJson))return;
             Gson gson = new Gson();
+            CouponResponse response = gson.fromJson(resultJson, CouponResponse.class);
+            if (response == null){
+                return;
+            }
+
+            ArrayList<CouponModel> list = response.getData();
+            if (list == null)return;
+
+            couponViewPagerAdapter = new ConfirmationCouponPagerAdapter(getSupportFragmentManager(),list);
+            vp_viewPager.setAdapter(couponViewPagerAdapter);
+//            couponViewPagerAdapter.updateData(list);
+
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void choosedCoupon(CouponEvent couponEvent) {
+        if (couponEvent == null) return;
+        Intent intent = new Intent();
+        intent.putExtra("zhunafeng123",couponEvent.getData());
+        setResult(RESULT_OK,intent);
+        finish();
     }
 }

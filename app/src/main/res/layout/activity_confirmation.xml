@@ -287,8 +287,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/dp_5"
-                    android:layout_toLeftOf="@+id/tv_coupon_img"
-                    android:text="@string/product_confirmation_credit_available_1" />
+                    android:text="￥00.00"
+                    android:layout_toLeftOf="@+id/tv_coupon_img"/>
 
                 <ImageView
                     android:id="@+id/tv_coupon_img"
@@ -406,8 +406,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="已节省￥500.00" />
+                        android:maxLines="1" />
 
                 </LinearLayout>
 
