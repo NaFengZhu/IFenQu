@@ -134,7 +134,7 @@ public class HttpConstant {
     /**
      * 产品列表
      *
-     * /product/v1/products
+     * /product/v1/products/selection
      * GET
      */
     public static String URL_PRODUCT_LIST = BASE_URL + "/product/v1/products";

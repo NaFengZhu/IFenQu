@@ -31,7 +31,6 @@ import com.ifenqu.app.util.CacheConstant;
 import com.ifenqu.app.util.GeeVerificationUtil;
 import com.ifenqu.app.util.NetworkUtil;
 import com.ifenqu.app.util.TimerManager;
-import com.ifenqu.app.util.WeChatManager;
 import com.ifenqu.app.view.BaseActivity;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -100,11 +99,13 @@ public class LoginActivity extends BaseActivity implements OnHttpResponseListene
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         init();
+        registerWeChat();
 
-//        WeChatManager.getInstance().regToWx(this);
+    }
+
+    private void registerWeChat(){
         iwxapi = WXAPIFactory.createWXAPI(this, Constants.WECHAT_APP_ID, true);
         iwxapi.registerApp(Constants.WECHAT_APP_ID);
-
     }
 
     @Override
@@ -124,7 +125,6 @@ public class LoginActivity extends BaseActivity implements OnHttpResponseListene
     private void init() {
         timerManager = new TimerManager();
         mGeeVerificationUtil = new GeeVerificationUtil(this);
-        WeChatManager.getInstance().regToWx(this);
 
         et_input_verification.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -167,7 +167,6 @@ public class LoginActivity extends BaseActivity implements OnHttpResponseListene
 
     @OnClick(R.id.lv_login_wechat)
     public void loginWechat(View view) {
-//        WeChatManager.getInstance().sendReq();
         sendReqToWechat();
     }
 

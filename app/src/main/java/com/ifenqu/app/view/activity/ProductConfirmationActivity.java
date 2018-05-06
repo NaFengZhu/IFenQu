@@ -161,15 +161,20 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
         tv_pay_price.setText(StringUtil.getPrice(confirmBusinessModel.getTotalPrice(), StringUtil.PRICE_FORMAT_PREFIX));
         each_term.setText(StringUtil.getPrice(Double.parseDouble(confirmBusinessModel.getTotalPrice()) / 12,StringUtil.PRICE_FORMAT_PREFIX));
 
-        Gson gson = new Gson();
-        try{
-            addressBusiness = gson.fromJson(CacheUtils.getInstance().getString(CacheConstant.KEY_CACHE_ADDRESS),AddressBusiness.class);
-            if (addressBusiness !=null){
-                tv_address_title.setText(addressBusiness.getName() + " " + addressBusiness.getPhone());
-                tv_address_subtitle.setText(addressBusiness.getProvince().getName() + " " + addressBusiness.getCity().getName() + addressBusiness.getArea().getName() + addressBusiness.getSpecificAddress());
+        if (LoginUtil.getLoginToken() != null && !TextUtils.isEmpty(LoginUtil.getLoginToken().getAccessToken())){
+            String cacheStr = CacheUtils.getInstance().getString(CacheConstant.KEY_CACHE_ADDRESS + LoginUtil.getLoginToken().getAccessToken());
+            if (!TextUtils.isEmpty(cacheStr)){
+                Gson gson = new Gson();
+                try{
+                    addressBusiness = gson.fromJson(cacheStr,AddressBusiness.class);
+                    if (addressBusiness !=null){
+                        tv_address_title.setText(addressBusiness.getName() + " " + addressBusiness.getPhone());
+                        tv_address_subtitle.setText(addressBusiness.getProvince().getName() + " " + addressBusiness.getCity().getName() + addressBusiness.getArea().getName() + addressBusiness.getSpecificAddress());
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
-        }catch (Exception e){
-            e.printStackTrace();
         }
 
     }
@@ -230,7 +235,9 @@ public class ProductConfirmationActivity extends BaseActivity implements OnHttpR
             Gson gson = new Gson();
             LogUtils.d("JSON -"+gson.toJson(addressBusiness));
             //保存地址
-            CacheUtils.getInstance().put(CacheConstant.KEY_CACHE_ADDRESS,gson.toJson(addressBusiness));
+            if (LoginUtil.getLoginToken() != null && !TextUtils.isEmpty(LoginUtil.getLoginToken().getAccessToken())){
+                CacheUtils.getInstance().put(CacheConstant.KEY_CACHE_ADDRESS + LoginUtil.getLoginToken().getAccessToken(),gson.toJson(addressBusiness));
+            }
 
             updateContent(true);
             tv_address_title.setText(addressBusiness.getName() + " " + addressBusiness.getPhone());

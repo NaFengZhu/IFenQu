@@ -103,7 +103,13 @@ public class BottomMenuWindow extends BaseActivity implements IFenQuWebView.IFen
     }
 
     private void setInitialPrice() {
+        if (goodModel == null)return;
         String priceStr, termPrice;
+        if (colorModel != null && styleModel != null){
+            calculateCurrentPrice();
+            return;
+        }
+
         if (goodModel.isOnlyOnePrice()) {
             termPrice = StringUtil.getPrice(goodModel.getTermsPrice(), StringUtil.PRICE_FORMAT_PREFIX);
             priceStr = StringUtil.getPrice(goodModel.getLowPrice(), StringUtil.PRICE_FORMAT_PREFIX);

@@ -10,7 +10,7 @@ public class CacheConstant {
     public static final String KEY_WECHAT_CODE = "KEY_WECHAT_CODE";
 
 
-    public static final String KEY_CACHE_ADDRESS = "KEY_CACHE_ADDRESS_"+LoginUtil.getLoginToken().getRefreshToken();
+    public static final String KEY_CACHE_ADDRESS = "KEY_CACHE_ADDRESS_";
 
-
+    public static final String KEY_PRODUCT_PROFILE = "KEY_PRODUCT_PROFILE";
 }

@@ -9,13 +9,7 @@ import com.blankj.utilcode.util.Utils;
 import com.growingio.android.sdk.collection.Configuration;
 import com.growingio.android.sdk.collection.GrowingIO;
 import com.ifenqu.app.R;
-import com.ifenqu.app.util.WeChatManager;
-import com.ifenqu.app.view.activity.MainActivity;
-import com.squareup.haha.perflib.Main;
 import com.squareup.leakcanary.LeakCanary;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-
 import cn.jpush.android.api.BasicPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
 

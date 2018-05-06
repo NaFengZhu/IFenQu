@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.CacheUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.emilsjolander.components.StickyScrollViewItems.StickyScrollView;
 import com.google.gson.Gson;
@@ -27,6 +28,7 @@ import com.ifenqu.app.model.GoodModel;
 import com.ifenqu.app.model.ProductDetailGoodsModel;
 import com.ifenqu.app.model.ProductDetailModel;
 import com.ifenqu.app.model.ProductDetailRelativedModel;
+import com.ifenqu.app.util.CacheConstant;
 import com.ifenqu.app.util.LoginUtil;
 import com.ifenqu.app.util.NetworkUtil;
 import com.ifenqu.app.util.StringUtil;
@@ -113,7 +115,6 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
     private GoodModel goodModel;
     private Map<String, String> typeMap;
     private ProductDetailModel productModel;
-    private ConfirmBusinessModel confirmBusinessModel;
     private int productPrice; //商品价格值
     private String termsPrice;
     private String productImageContent;
@@ -151,7 +152,7 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
         ll_scroll_title.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition()){
+                switch (tab.getPosition()) {
                     case 0:
                         ifenqu_webView1.setVisibility(View.VISIBLE);
                         ifenqu_webView2.setVisibility(View.GONE);
@@ -167,7 +168,7 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
                         ifenqu_webView2.setVisibility(View.GONE);
                         ifenqu_webView3.setVisibility(View.VISIBLE);
                         break;
-                        default:
+                    default:
                 }
             }
 
@@ -181,6 +182,32 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
 
             }
         });
+
+        goodModel = (GoodModel) CacheUtils.getInstance().getSerializable(CacheConstant.KEY_PRODUCT_PROFILE + productId);
+        if (goodModel != null) {
+            colorModel = goodModel.getCurrentColorItem();
+            styleModel = goodModel.getCurrentStyleItem();
+            if (colorModel == null) {
+                if (styleModel != null) {
+                    tv_type_name.setText(styleModel.getName());
+                    selectedData(goodModel.getStyleList(), styleModel);
+                    goodModel.setCurrentStyleItem(styleModel);
+                    goodModel.setCurrentColorItem(null);
+                }
+                return;
+            }
+
+            if (styleModel == null) {
+                if (colorModel != null) {
+                    tv_type_name.setText(colorModel.getName());
+                    selectedData(goodModel.getColorList(), colorModel);
+                    goodModel.setCurrentStyleItem(null);
+                    goodModel.setCurrentColorItem(colorModel);
+                }
+                return;
+            }
+            tv_type_name.setText(colorModel.getName() + "  " + styleModel.getName());
+        }
     }
 
     private void httpGetProductInfo() {
@@ -393,24 +420,27 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
 
     @OnClick(R.id.tv_buy_now)
     public void buyNow(View view) {
-        if (colorModel == null) {
-            ToastUtils.showShort("请选择颜色");
-            return;
-        }
-
-        if (styleModel == null) {
-            ToastUtils.showShort("请选择版本配置");
-            return;
-        }
-
-        if (confirmBusinessModel == null) {
+        if (colorModel == null || styleModel == null) {
             chooseGoods();
             return;
         }
+
         if (!LoginUtil.checkLoginStatus()) {
             LoginActivity.start(view.getContext());
             return;
         }
+
+        ConfirmBusinessModel confirmBusinessModel = new ConfirmBusinessModel();
+        confirmBusinessModel.setColorModel(colorModel);
+        confirmBusinessModel.setStyleModel(styleModel);
+        confirmBusinessModel.setProductId(productId);
+        confirmBusinessModel.setProductName(productModel.getProductName());
+        ProductDetailGoodsModel model = calculateCurrentPrice(colorModel, styleModel);
+        if (model != null) {
+            confirmBusinessModel.setGoodsId(model.getGoodsId() + "");
+            confirmBusinessModel.setTotalPrice(String.valueOf(model.getAmount()));
+        }
+
         executeBuy(confirmBusinessModel);
     }
 
@@ -424,26 +454,11 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
         chooseGoods();
     }
 
-    private void clearColorSelected() {
-        if (goodModel == null) return;
-        List<GoodDetailModel> list = goodModel.getColorList();
+    private void clearSelectedStatus(List<GoodDetailModel> list) {
         if (list != null) {
             int num = list.size();
             for (int i = 0; i < num; i++) {
                 GoodDetailModel item = list.get(i);
-                if (item == null) continue;
-                item.setSelected(false);
-            }
-        }
-    }
-
-    private void clearStyleSelected() {
-        if (goodModel == null) return;
-        List<GoodDetailModel> styleList = goodModel.getStyleList();
-        if (styleList != null) {
-            int num = styleList.size();
-            for (int i = 0; i < num; i++) {
-                GoodDetailModel item = styleList.get(i);
                 if (item == null) continue;
                 item.setSelected(false);
             }
@@ -474,48 +489,39 @@ public class ProductDetailActivity extends BaseActivity implements OnHttpRespons
             colorModel = (GoodDetailModel) data.getSerializableExtra(ProductDetailActivity.BUNDLE_KEY_COLOR);
             styleModel = (GoodDetailModel) data.getSerializableExtra(ProductDetailActivity.BUNDLE_KEY_STYLE);
 
-            showTypeContent(true);
-
-            clearColorSelected();
-            clearStyleSelected();
-
-            if (colorModel == null && styleModel == null) {
-                showTypeContent(false);
-                return;
-            }
-            if (colorModel == null) {
-                if (styleModel != null) {
-                    tv_type_name.setText(styleModel.getName());
-                    selectedData(goodModel.getStyleList(), styleModel);
-                    goodModel.setCurrentStyleItem(styleModel);
-                    goodModel.setCurrentColorItem(null);
-                }
-                return;
+            //更新goodModel
+            if (goodModel != null) {
+                goodModel.setCurrentColorItem(colorModel);
+                goodModel.setCurrentStyleItem(styleModel);
             }
 
-            if (styleModel == null) {
-                if (colorModel != null) {
-                    tv_type_name.setText(colorModel.getName());
-                    selectedData(goodModel.getColorList(), colorModel);
-                    goodModel.setCurrentStyleItem(null);
-                    goodModel.setCurrentColorItem(colorModel);
-                }
-                return;
+            //判断是展示默认的"请选择商品款型" 还是展示其中的一个属性（颜色/款式）
+            showTypeContent(colorModel == null && styleModel == null ? false : true);
+
+            //设置goodModel里的所有的 GoodDetailModel 未被选中
+            if (goodModel != null) {
+                clearSelectedStatus(goodModel.getColorList());
+                clearSelectedStatus(goodModel.getStyleList());
             }
 
-            tv_type_name.setText(colorModel.getName() + "  " + styleModel.getName());
-
-            confirmBusinessModel = new ConfirmBusinessModel();
-            confirmBusinessModel.setColorModel(colorModel);
-            confirmBusinessModel.setProductId(productId);
-            confirmBusinessModel.setStyleModel(styleModel);
-            confirmBusinessModel.setProductName(productModel.getProductName());
-            ProductDetailGoodsModel model = calculateCurrentPrice(colorModel, styleModel);
-            if (model != null) {
-                confirmBusinessModel.setGoodsId(model.getGoodsId() + "");
-                confirmBusinessModel.setTotalPrice(String.valueOf(model.getAmount()));
+            // --- start 处理不同条件，颜色/版本，选中的的内容 -----
+            StringBuilder configStr = new StringBuilder();
+            if (colorModel != null) {
+                configStr.append(colorModel.getName()).append(" ");
+                selectedData(goodModel.getColorList(), colorModel);
             }
 
+            if (styleModel != null) {
+                configStr.append(styleModel.getName());
+                selectedData(goodModel.getStyleList(), styleModel);
+            }
+
+            // --- end -----
+
+            tv_type_name.setText(configStr.toString());
+
+            //保存当前用户选择的内容
+            CacheUtils.getInstance().put(CacheConstant.KEY_PRODUCT_PROFILE + productId, goodModel);
         }
     }
 
