@@ -70,7 +70,6 @@
                         style="@style/text_style_24"
                         android:layout_width="match_parent"
                         android:maxLines="1"
-                        android:ellipsize="end"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_2"/>
 
