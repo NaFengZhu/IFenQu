@@ -225,7 +225,7 @@ public class HttpConstant {
      * https://rest.ifenqu.com/sys/v1/banner/SH_BANNER
      * GET
      */
-    public static String URL_BANNER = BASE_URL + "/sys/v1/banner/SH_BANNER";
+    public static String URL_BANNER = BASE_URL + "/sys/v1/banner/home_banner";
     public static int URL_BANNER_INDEX = 26;
 
 }
